@@ -26,12 +26,13 @@ class SequenceHTMLFormatter implements iHTMLContentFormatter{
 		$htmlInstructionCode = $htmlInstructionCode . "document.getElementById(id2).style.display='';";
 		$htmlInstructionCode = $htmlInstructionCode . "setaudio();";
 		$htmlInstructionCode = $htmlInstructionCode . "document.getElementById('counter').innerHTML=".$dataVO->getTimer1().";";
+		$htmlInstructionCode = $htmlInstructionCode . "$('ul#sortable > li').tsort('',{attr:'id'});";
 		$htmlInstructionCode = $htmlInstructionCode . "}";
 		
 		$htmlInstructionCode = $htmlInstructionCode . "function setaudio(){";
 		$htmlInstructionCode = $htmlInstructionCode . "var myAudio = document.createElement('audio');";
 		$htmlInstructionCode = $htmlInstructionCode . "myAudio.controls = true;";
-		$htmlInstructionCode = $htmlInstructionCode . "myAudio.src = 'beep.mp3';";
+		$htmlInstructionCode = $htmlInstructionCode . "myAudio.src = 'beep.wav';";
 		$htmlInstructionCode = $htmlInstructionCode . "}";
  		$htmlInstructionCode = $htmlInstructionCode . "$(function() {";
  		$htmlInstructionCode = $htmlInstructionCode . "$( \"#sortable\" ).sortable({";
@@ -117,7 +118,7 @@ class SequenceHTMLFormatter implements iHTMLContentFormatter{
 		$htmlInstructionCode = $htmlInstructionCode . "<ul id=\"sortable\" class=\"ui-sortable\">";
 		foreach($itemList as $item){
 			if((strlen(trim($item->getItem())))>0){
-					$htmlInstructionCode = $htmlInstructionCode . "<li id='" . $itemPrefix . $itemCount ."' class=\"ui-state-default\" >". $item->getItem() ."</li>";
+					$htmlInstructionCode = $htmlInstructionCode . "<li id='" . $itemCount ."' class=\"ui-state-default\" >". $item->getItem() ."</li>";
 				$itemCount++;
 			}
 		
@@ -126,7 +127,7 @@ class SequenceHTMLFormatter implements iHTMLContentFormatter{
 		$htmlInstructionCode = $htmlInstructionCode . "<span id=\"counter\">". $dataVO->getTimer1() ."</span> second(s).";
 //		$htmlInstructionCode = $htmlInstructionCode . "<br/><br/><input type=\"button\" value=\"Shuffle\" onclick = \"shuffle()\" style=\"position: absolute;top: 500px;\" />";
 		$htmlInstructionCode = $htmlInstructionCode . "<br/><br/><input type='submit' name='Back' value='BACK' style='width:80px; background-color: ORANGE;' onClick=\"changeDiv('items','instructions')\" />";
- 		$htmlInstructionCode = $htmlInstructionCode . "<audio id='sound' type='audio/mpeg' src='http://www.cs.indiana.edu/cgi-pub/harihanu/Resources/sounds/beep.mp3' preload/>";
+ 		$htmlInstructionCode = $htmlInstructionCode . "<audio id='sound' type='audio/mpeg' src='http://www.cs.indiana.edu/cgi-pub/harihanu/Resources/sounds/beep.wav' preload/>";
  		
 		$htmlInstructionCode = $htmlInstructionCode . "</div>";
 		

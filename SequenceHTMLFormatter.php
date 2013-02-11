@@ -11,7 +11,7 @@ class SequenceHTMLFormatter implements iHTMLContentFormatter{
 		$htmlInstructionCode = $htmlInstructionCode . "<script type=\"text/javascript\" async src=\"http://www.google-analytics.com/ga.js\"></script>";
 		$htmlInstructionCode = $htmlInstructionCode . "<script src=\"http://code.jquery.com/jquery-1.9.0.js\"></script>";
 		$htmlInstructionCode = $htmlInstructionCode . "<script src=\"http://code.jquery.com/ui/1.10.0/jquery-ui.js\"></script>";
-		$htmlInstructionCode = $htmlInstructionCode . "<script src=\"https://raw.github.com/furf/jquery-ui-touch-punch/master/jquery.ui.touch-punch.min.js\"></script>";
+		$htmlInstructionCode = $htmlInstructionCode . "<script src=\"http://www.cs.indiana.edu/cgi-pub/harihanu/Resources/js/jqueryuitouchpunchmin.js\"></script>";
 		
 		$htmlInstructionCode = $htmlInstructionCode . "<style>";
 		$htmlInstructionCode = $htmlInstructionCode . "#sortable { list-style-type: none; margin: 0; padding: 0; width: 60%; }";

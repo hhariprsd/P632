@@ -1,11 +1,12 @@
 <?php
 
-require_once("iHtmlContentFormatter.php");
+require_once("iHTMLContentFormatter.php");
 
 class SequenceHTMLFormatter implements iHTMLContentFormatter{
 	
 	public function formHeaderContentHTML($dataVO,$styleVO){
 
+		$htmlInstructionCode = "";
 		$htmlInstructionCode = $htmlInstructionCode . "<link href=\"http://code.jquery.com/ui/1.10.0/themes/base/jquery-ui.css\" rel=\"stylesheet\">";
  		$htmlInstructionCode = $htmlInstructionCode . "<link href=\"http://code.jquery.com/ui/1.10.0/themes/ui-lightness/jquery-ui.css\" rel=\"stylesheet\">";
 		$htmlInstructionCode = $htmlInstructionCode . "<script type=\"text/javascript\" async src=\"http://www.google-analytics.com/ga.js\"></script>";

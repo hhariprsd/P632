@@ -18,6 +18,8 @@ require_once('HTMLContentFormatter.php');
 
 function formHTMLContent($dataVO,$styleVO){
 
+
+
 	if ($dataVO->getGameType() == 'SEQUENCE'){
 
 		try{
@@ -143,12 +145,12 @@ function game ($dataUri, $styleUri, $formatOverride = FALSE){
 		$htmlContent = formHTMLContent($dataVO,$styleVO);
 
 	}catch(Exception $e){
-		$htmlContent = formDefaultHTMLContent($dataURLContent,$styleURLContent);
+		$htmlContent = formDefaultHTMLContent(htmlspecialchars($dataURLContent),htmlspecialchars($styleURLContent));
 	}
 	/*
 	 * returns the html string to the caller.
 	*/
-	
+
 	return $htmlContent;
 
 }

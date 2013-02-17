@@ -8,7 +8,7 @@
  */
 function gameCallURL($url){
 
-	$data = "";
+	/* $data = ""; */
 
 	/*
 	 * Decodes the URL and trims spaces that are leading or to the suffix of the URL.
@@ -20,7 +20,7 @@ function gameCallURL($url){
 
 	$url = trim($url);
 
-	if(!($fileHandle = fopen($url,"r"))){
+	/* if(!($fileHandle = fopen($url,"r"))){
 		throw new Exception("Not able to access URL " . $url);
 	}
 
@@ -28,9 +28,14 @@ function gameCallURL($url){
 		$data = $data . fgets($fileHandle);
 	}
 
-	fclose($fileHandle);
+	fclose($fileHandle); */
+	
+	if(!($fileContent = file_get_contents($url))){
+		throw new Exception("Not able to access URL " . $url);
+	}
+	
 
-	return $data;
+	return $fileContent;
 }
 
 ?>

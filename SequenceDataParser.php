@@ -53,6 +53,10 @@ class SequenceDataParser implements iDataXMLParser{
 				throw new Exception("Data File Format Not Supported");
 			}
 		}
+		
+		if(is_null($sequenceItemList) || count($sequenceItemList) == 0){
+			throw new Exception("Data Items Empty in XML");
+		}
 
 		$sequenceObject->setChildInfo($sequenceItemList);
 

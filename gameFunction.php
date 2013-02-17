@@ -43,8 +43,8 @@ function formHTMLContent($dataVO,$styleVO){
 	* Returns the HTML content as a string to the caller.
 	*/
 	$htmlContent =<<<FILECONTENT
-	<html>
-	<head>
+<html>
+  <head>
 $headerContent
   </head>
   <body>
@@ -66,10 +66,8 @@ function formDefaultHTMLContent($dataContent,$styleContent){
 	*/
 
 	$result =<<<FILECONTENT
-	<html>
-	<head>
-
-
+<html>
+  <head>
     <title>WGS game</title>
   </head>
 
@@ -78,12 +76,12 @@ function formDefaultHTMLContent($dataContent,$styleContent){
 
     <h2>Data file:</h2>
 <pre>
-	"$dataContent"
+$dataContent
 </pre>
 
 <h2>Style file:</h2>
 <pre>
-"$styleContent"
+$styleContent
 </pre>
   <body>
 <html>

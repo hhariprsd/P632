@@ -47,30 +47,53 @@ class SequenceHTMLFormatter implements iHTMLContentFormatter{
 			}
 		}
 		$htmlInstructionCode = $htmlInstructionCode . " function calcScore(sampleArray,itemArray){";
+
 		$htmlInstructionCode = $htmlInstructionCode . " var currOrder = new Array();";
+
 		$htmlInstructionCode = $htmlInstructionCode . " var i =0;";
+
 		$htmlInstructionCode = $htmlInstructionCode . " var k=0;";
+
 		$htmlInstructionCode = $htmlInstructionCode . " var m;";
+
 		$htmlInstructionCode = $htmlInstructionCode . " var j=0;";
+
 		$htmlInstructionCode = $htmlInstructionCode . " var score=0;";
+
 		$htmlInstructionCode = $htmlInstructionCode . " var sum=0;";
 		$htmlInstructionCode = $htmlInstructionCode . " var flag =0;";
+
 		//$htmlInstructionCode = $htmlInstructionCode . " if(initScore==1){";
+
 		$htmlInstructionCode = $htmlInstructionCode . " while(i<itemArray.length)";
+
 		$htmlInstructionCode = $htmlInstructionCode . " {currOrder[i] = itemArray[i].childNodes[0].nodeValue.toString();";
+
 		$htmlInstructionCode = $htmlInstructionCode . " i++;}";
 		//$htmlInstructionCode = $htmlInstructionCode . " else {currOrder = itemArray;";
+
 		$htmlInstructionCode = $htmlInstructionCode . " for (j = 0; j < currOrder.length; j++) {";
+
 		$htmlInstructionCode = $htmlInstructionCode . " k = j + 1;";
+
 		$htmlInstructionCode = $htmlInstructionCode . " m = sampleArray.indexOf(currOrder[j]);";
+
 		$htmlInstructionCode = $htmlInstructionCode . " sum = sum + (k - m)*(k - m);";
+
 		$htmlInstructionCode = $htmlInstructionCode . " }";
+
 		$htmlInstructionCode = $htmlInstructionCode . " var n = currOrder.length;";
+
 		$htmlInstructionCode = $htmlInstructionCode . " score = Math.round((1 - (itemArray.length * sum / (n * (n * n - 1)))) * 50 + 50);";
+
 		$htmlInstructionCode = $htmlInstructionCode . " if(score<=0){";
+
 		$htmlInstructionCode = $htmlInstructionCode . " document.getElementById('score').innerHTML=''+0;}";
+
 		$htmlInstructionCode = $htmlInstructionCode . " else if(score>100){";
+
 		$htmlInstructionCode = $htmlInstructionCode . " document.getElementById('score').innerHTML=''+100;}";
+
 		$htmlInstructionCode = $htmlInstructionCode . " else if(score>0 && score<=100){";
 		$htmlInstructionCode = $htmlInstructionCode . " for(i=0;i<itemArray.length;i++){";
 		$htmlInstructionCode = $htmlInstructionCode . " if(sampleArray[i]==currOrder[i]) {";
@@ -83,6 +106,7 @@ class SequenceHTMLFormatter implements iHTMLContentFormatter{
 		$htmlInstructionCode = $htmlInstructionCode . " else {";
 		$htmlInstructionCode = $htmlInstructionCode . " document.getElementById('score').innerHTML=''+score;}";
 		$htmlInstructionCode = $htmlInstructionCode . " }";
+
 		$htmlInstructionCode = $htmlInstructionCode . " } ";
 		
 		$htmlInstructionCode = $htmlInstructionCode . "function setAudioFlag(){";
@@ -230,7 +254,10 @@ class SequenceHTMLFormatter implements iHTMLContentFormatter{
  		$htmlInstructionCode = $htmlInstructionCode . "changeDiv('none','none','none','none','block','false');";
  		$htmlInstructionCode = $htmlInstructionCode . "if(audioFlag==1 && score >= 100){";
  		$htmlInstructionCode = $htmlInstructionCode . "document.getElementById('applause').play();";
+ 		$htmlInstructionCode = $htmlInstructionCode . "document.getElementById('gomsg').innerHTML='Congratulations!!';";
  		$htmlInstructionCode = $htmlInstructionCode . "}";
+ 		$htmlInstructionCode = $htmlInstructionCode . "else{";
+ 		$htmlInstructionCode = $htmlInstructionCode . "document.getElementById('gomsg').innerHTML='Game is Over';}";
  		$htmlInstructionCode = $htmlInstructionCode . "}";
  		
  		$htmlInstructionCode = $htmlInstructionCode . "function onclickPlay() { ";
@@ -314,6 +341,7 @@ class SequenceHTMLFormatter implements iHTMLContentFormatter{
 		$Level2Disabled = "";
 		$Level3Disabled = "";
 		$defaultTimerValue = $dataVO->getTimer1();
+		$gameOverMsg = "Game is Over:";
 		
 		if($dataVO->getUse1() == "no"){
 			$Level1Disabled = "disabled";
@@ -351,7 +379,7 @@ class SequenceHTMLFormatter implements iHTMLContentFormatter{
 		$htmlInstructionCode = $htmlInstructionCode . "</div>";
 		
 		$htmlInstructionCode = $htmlInstructionCode . "<div id='end' style=\" width:600px;height:310px;  margin-left:82px; background-color:#F7DFBD; display:none\">";
-		$htmlInstructionCode = $htmlInstructionCode . "<h2 align=\"center\"> Game is Over Dude:</h2>";
+		$htmlInstructionCode = $htmlInstructionCode . "<h2 id='gomsg' align=\"center\">".$gameOverMsg."</h2>";
 		
 		$htmlInstructionCode = $htmlInstructionCode . "<div id=\"container\" style=\"float:left; width:100%;\">";
 		$htmlInstructionCode = $htmlInstructionCode . "<ul id=\"expected\" style=\"float:left; width:50%; \">";
@@ -372,9 +400,10 @@ class SequenceHTMLFormatter implements iHTMLContentFormatter{
 		$htmlInstructionCode = $htmlInstructionCode . "<input type='button' id='Mute' name='Mute' value='Mute' style='width:80px; background-color: ORANGE; margin-left:10px;' onClick=\"setAudioFlag()\" />";
 		$htmlInstructionCode = $htmlInstructionCode . "<input type='button' id='pauseButton' name='Mute' value='$buttonTitle' style='width:80px; background-color: ORANGE; margin-left:10px;' onClick=\"pauseResume()\" />";
 		$htmlInstructionCode = $htmlInstructionCode . "<label id=\"scoreLabel\" style='width:80px; background-color: ORANGE; margin-left:10px;'>Score: </label>";
+
 		$htmlInstructionCode = $htmlInstructionCode . "<span id=\"score\" style='width:80px; background-color: ORANGE; margin-left:10px;'>0 </span>";
-		$htmlInstructionCode = $htmlInstructionCode . "<audio id='sound' type='audio/mpeg' src='http://www.cs.indiana.edu/cgi-pub/harihanu/Resources/sounds/sequence_click.wav' preload/>";
-		$htmlInstructionCode = $htmlInstructionCode . "<audio id='applause' type='audio/mpeg' src='http://www.cs.indiana.edu/cgi-pub/harihanu/Resources/sounds/Clap.wav' preload/>";
+		$htmlInstructionCode = $htmlInstructionCode . "<audio id='sound' type='audio/wav' src='http://www.cs.indiana.edu/cgi-pub/harihanu/Resources/sounds/sequence_click.wav' preload/>";
+		$htmlInstructionCode = $htmlInstructionCode . "<audio id='applause' type='audio/wav' src='http://www.cs.indiana.edu/cgi-pub/harihanu/Resources/sounds/Clap.wav' preload/>";
 		$htmlInstructionCode = $htmlInstructionCode . "</div>";
 		
 		return $htmlInstructionCode;

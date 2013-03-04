@@ -15,6 +15,7 @@ class StyleVO {
 	private $ColorScheme;
 	private $Logo;
 	private $InitialInstructions;
+	private $ResourcePath;
 
 	function getSoundDisplay() {
 		return $this->SoundDisplay;
@@ -46,5 +47,14 @@ class StyleVO {
 	function setInitialInstructions($initialInstructions) {
 		$this->InitialInstructions = $initialInstructions;
 	}
+	
+	function getResourcePath(){
+		return $this->ResourcePath;
+	}
+	
+	function setResourcePath($resourcePath){
+		$this->ResourcePath = $resourcePath;
+	}
+	
 }
 ?>

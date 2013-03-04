@@ -12,6 +12,13 @@ class SequenceStyleParser implements iStyleXMLParser{
 			throw new Exception("Data File Empty / Parse Error");
 		}
 		
+		if(!(is_null($xmlObject['resource_path']))){
+			$styleObject->setResourcePath($xmlObject['resource_path']);
+		}else{
+			$styleObject->setResourcePath("./");
+		}
+		
+		
 		$childTags = $xmlObject->children();
 		foreach($childTags as $child){
 			if($child->getName() == 'SoundDisplay'){

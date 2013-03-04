@@ -135,7 +135,7 @@ function game ($dataUri, $styleUri, $formatOverride = FALSE){
 
 		$dataVO  = parseDataFile($dataURLContent);
 		$styleVO = parseStyleFile($styleURLContent);
-
+		
 		/*
 		 * Forms the HTML Section for the game.
 		*

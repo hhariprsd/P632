@@ -373,8 +373,8 @@ class SequenceHTMLFormatter implements iHTMLContentFormatter{
 	}
 	public function formGameContentHTML($dataVO,$styleVO){
 		
-		$height = ((($dataVO->getSampleSize() - 7) * 30 ) + 280);
-		$midHeight = (($height / 2) - 30) ;
+		$height = ((($dataVO->getSampleSize() - 7) * 30 ) + 300);
+		$midHeight = (($height / 2) - 50) ;
 		$htmlInstructionCode = "<div id='items' class='game' style=\"height:". $height ."px;\">";
 		$itemList = $dataVO->getChildInfo();
 		$itemPrefix = "ITEM";
@@ -430,9 +430,9 @@ class SequenceHTMLFormatter implements iHTMLContentFormatter{
 		
 		$htmlInstructionCode = $htmlInstructionCode . "<div id='end' class='gameOver' style=\"height:". $height ."px;\">";
 		$htmlInstructionCode = $htmlInstructionCode . "<table><tr>";
-		$htmlInstructionCode = $htmlInstructionCode . "<td width=\"15%\" text-align=\"center\">Your Sequence</td>";
+		$htmlInstructionCode = $htmlInstructionCode . "<td width=\"15%\" class='Label 'text-align=\"center\">Your Sequence</td>";
 		
-		$htmlInstructionCode = $htmlInstructionCode . "<td width=\"20%\" text-align=\"center\">Correct Sequence</td>";
+		$htmlInstructionCode = $htmlInstructionCode . "<td width=\"15%\" class='Label' text-align=\"center\">Correct Sequence</td>";
 		$htmlInstructionCode = $htmlInstructionCode . "<td></td>";
 		$htmlInstructionCode = $htmlInstructionCode . "</tr></table>";
 		$htmlInstructionCode = $htmlInstructionCode . "<div class='sequenceIndex'>";
@@ -457,7 +457,7 @@ class SequenceHTMLFormatter implements iHTMLContentFormatter{
 		$htmlInstructionCode = $htmlInstructionCode ."<div id='controls' class='navigation'>";
 		$htmlInstructionCode = $htmlInstructionCode ."<span class='controls' id='controls'>";
 		$htmlInstructionCode = $htmlInstructionCode ."<input type='submit' name='instruction' class='instructionsButton' id='instruction' value='' onClick=\"onclickBack()\"/>";
-		$htmlInstructionCode = $htmlInstructionCode ."<input name='sound' type='button' class='muteButton' id='Mute' value='' onClick=\"setAudioFlag()\"/>";
+		$htmlInstructionCode = $htmlInstructionCode ."<input name='sound' type='button' class='muteButton' id='Mute' value='' onClick=\"setAudioFlag()\" style=\"background-image: url(". $styleVO->getResourcePath()  ."/images/sequence/sound_button0001.png);\"/>";
 		$htmlInstructionCode = $htmlInstructionCode ."</span>";
 		$htmlInstructionCode = $htmlInstructionCode ."<span class='playPause' id='playPause'>";
 		$htmlInstructionCode = $htmlInstructionCode ."<input name='play' type='submit' class='playButton' id='play' value='' onClick=\"onclickPlay()\"/>";

@@ -99,13 +99,13 @@ class SequenceHTMLFormatter implements iHTMLContentFormatter{
 		$htmlInstructionCode = $htmlInstructionCode . "function setAudioFlag(){";
 		$htmlInstructionCode = $htmlInstructionCode . "if(audioFlag==0)";
 		$htmlInstructionCode = $htmlInstructionCode . "{audioFlag=1; document.getElementById('Mute').style.color='#000000';";
-		$htmlInstructionCode = $htmlInstructionCode . "document.getElementById(\"Mute\").style.backgroundImage=\"url('". $styleVO->getResourcePath()  ."images/sequence/sound_button0002.png')\";";
+		$htmlInstructionCode = $htmlInstructionCode . "document.getElementById(\"Mute\").style.backgroundImage=\"url('". $styleVO->getResourcePath()  ."images/sequence/sound_button0001.png')\";";
 		$htmlInstructionCode = $htmlInstructionCode ."}";
 
 		$htmlInstructionCode = $htmlInstructionCode . "else";
 
 		$htmlInstructionCode = $htmlInstructionCode . "{audioFlag=0; document.getElementById('Mute').style.color='#808080';";
-		$htmlInstructionCode = $htmlInstructionCode . "document.getElementById(\"Mute\").style.backgroundImage=\"url('". $styleVO->getResourcePath()  ."images/sequence/sound_button0001.png')\";}";
+		$htmlInstructionCode = $htmlInstructionCode . "document.getElementById(\"Mute\").style.backgroundImage=\"url('". $styleVO->getResourcePath()  ."images/sequence/mute_button0003.png')\";}";
 		$htmlInstructionCode = $htmlInstructionCode ."}";
 
 		$htmlInstructionCode = $htmlInstructionCode . "function play(){";
@@ -180,6 +180,9 @@ class SequenceHTMLFormatter implements iHTMLContentFormatter{
 		$htmlInstructionCode = $htmlInstructionCode . "play();";
 		$htmlInstructionCode = $htmlInstructionCode . "changeMinuteAndTime(timerVal);";
 		//$htmlInstructionCode = $htmlInstructionCode . "document.getElementById('counter').innerHTML=timerVal;";
+		$htmlInstructionCode = $htmlInstructionCode . "changeDiv('none','block','none','block','none','false');";
+		$htmlInstructionCode = $htmlInstructionCode . "document.getElementById('pauseButton').style.display='inline';";
+		$htmlInstructionCode = $htmlInstructionCode . "document.getElementById('play').style.display='none';";
 		$htmlInstructionCode = $htmlInstructionCode . "}";
 		
 		$htmlInstructionCode = $htmlInstructionCode . "function changeDiv(id1,id2,id3,id4,id5,id6){";
@@ -240,8 +243,8 @@ class SequenceHTMLFormatter implements iHTMLContentFormatter{
  		$htmlInstructionCode = $htmlInstructionCode . "pausedTime = parseInt(minutes.innerHTML * 60,10) + parseInt(seconds.innerHTML,10);";
  		//$htmlInstructionCode = $htmlInstructionCode . "pausedTime = document.getElementById('counter').innerHTML;";
  		$htmlInstructionCode = $htmlInstructionCode . "changeDiv('none','none','block','block','none','false');";
- 		$htmlInstructionCode = $htmlInstructionCode . "document.getElementById('pause').disabled=true;";
- 		$htmlInstructionCode = $htmlInstructionCode . "document.getElementById('play').disabled=false;";
+ 		$htmlInstructionCode = $htmlInstructionCode . "document.getElementById('pauseButton').style.display='none';";
+ 		$htmlInstructionCode = $htmlInstructionCode . "document.getElementById('play').style.display='inline';";
  		$htmlInstructionCode = $htmlInstructionCode . "}";
  			
  		$htmlInstructionCode = $htmlInstructionCode . "function gameOver(score) { ";
@@ -279,8 +282,8 @@ class SequenceHTMLFormatter implements iHTMLContentFormatter{
  		$htmlInstructionCode = $htmlInstructionCode . "document.getElementById('applause').play();";
  		$htmlInstructionCode = $htmlInstructionCode . "}";
  		$htmlInstructionCode = $htmlInstructionCode . "pausedTime=null;";
- 		$htmlInstructionCode = $htmlInstructionCode . "document.getElementById('pauseButton').disabled=true;";
- 		$htmlInstructionCode = $htmlInstructionCode . "document.getElementById('play').disabled=false;";
+ 		$htmlInstructionCode = $htmlInstructionCode . "document.getElementById('pauseButton').style.display='none';";
+ 		$htmlInstructionCode = $htmlInstructionCode . "document.getElementById('play').style.display='inline';";
  		$htmlInstructionCode = $htmlInstructionCode . "}";
  		
  		$htmlInstructionCode = $htmlInstructionCode . "function onclickPlay() { ";
@@ -304,8 +307,8 @@ class SequenceHTMLFormatter implements iHTMLContentFormatter{
   		  		
  		$htmlInstructionCode = $htmlInstructionCode . "changeLevel(" . $timer . ");";
  		$htmlInstructionCode = $htmlInstructionCode . "}";
- 		$htmlInstructionCode = $htmlInstructionCode . "document.getElementById('play').disabled=true;";
- 		$htmlInstructionCode = $htmlInstructionCode . "document.getElementById('pauseButton').disabled=false;";
+ 		$htmlInstructionCode = $htmlInstructionCode . "document.getElementById('play').style.display='none';";
+ 		$htmlInstructionCode = $htmlInstructionCode . "document.getElementById('pauseButton').style.display='inline';";
  		$htmlInstructionCode = $htmlInstructionCode . "}";
 	
 		$htmlInstructionCode = $htmlInstructionCode . "function onclickBack() { ";
@@ -314,8 +317,8 @@ class SequenceHTMLFormatter implements iHTMLContentFormatter{
 		$htmlInstructionCode = $htmlInstructionCode . "pausedTime = parseInt(minutes.innerHTML * 60,10) + parseInt(seconds.innerHTML,10);";
  		//$htmlInstructionCode = $htmlInstructionCode . "pausedTime = document.getElementById('counter').innerHTML;";
  		$htmlInstructionCode = $htmlInstructionCode . "changeDiv('block','none','none','block','none','false');";
- 		$htmlInstructionCode = $htmlInstructionCode . "document.getElementById('pause').disabled=true;";
- 		$htmlInstructionCode = $htmlInstructionCode . "document.getElementById('play').disabled=false;";
+ 		$htmlInstructionCode = $htmlInstructionCode . "document.getElementById('pauseButton').style.display='none';";
+ 		$htmlInstructionCode = $htmlInstructionCode . "document.getElementById('play').style.display='inline';";
  		$htmlInstructionCode = $htmlInstructionCode . "}";		
 
  		

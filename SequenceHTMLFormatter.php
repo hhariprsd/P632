@@ -10,37 +10,10 @@ class SequenceHTMLFormatter implements iHTMLContentFormatter{
 		$htmlInstructionCode = $htmlInstructionCode . "<link href=\"http://code.jquery.com/ui/1.10.0/themes/base/jquery-ui.css\" rel=\"stylesheet\"> ";
  		$htmlInstructionCode = $htmlInstructionCode . "<link href=\"http://code.jquery.com/ui/1.10.0/themes/ui-lightness/jquery-ui.css\" rel=\"stylesheet\">";
  		$htmlInstructionCode = $htmlInstructionCode . "<link href=\"". $styleVO->getResourcePath()  ."css/Sequence.css\" rel=\"stylesheet\">";
+ 		$htmlInstructionCode = $htmlInstructionCode . "<title>" . $dataVO->getDisplayTitle() . "</title>";
 		$htmlInstructionCode = $htmlInstructionCode . "<script src=\"http://code.jquery.com/jquery-1.9.0.js\"></script>";
 		$htmlInstructionCode = $htmlInstructionCode . "<script src=\"http://code.jquery.com/ui/1.10.0/jquery-ui.js\"></script>";
 		$htmlInstructionCode = $htmlInstructionCode . "<script src=\"" . $styleVO->getResourcePath()  ."js/jqueryuitouchpunchmin.js\"></script>";
-		
-		$htmlInstructionCode = $htmlInstructionCode . "<style>";
-		$htmlInstructionCode = $htmlInstructionCode . "#sortable { list-style-type: none; margin: 0; padding: 0; width: 60%; }";
-		$htmlInstructionCode = $htmlInstructionCode . "#sortable li { margin: 0 3px 3px 3px; padding: 0.4em; padding-left: 1.5em; font-size: 1.0em; width: 340px; height: 15px; background-image: url(\"" . $styleVO->getResourcePath()  ."images/gradient.jpg\");}";
-		$htmlInstructionCode = $htmlInstructionCode . "#sortable li span { position: absolute; margin-left: -1.3em; }";
-		
-		$htmlInstructionCode = $htmlInstructionCode . "#expected { list-style-type: none; margin: 0; padding: 0; width: 50%; }";
-		$htmlInstructionCode = $htmlInstructionCode . "#expected li { margin: 0 3px 3px 3px; padding: 0.4em; padding-left: 1.5em; font-size: 1.0em; width: 180px; height: 15px; background-image: url(\"" . $styleVO->getResourcePath()  ."images/gradient.jpg\");}";
-		$htmlInstructionCode = $htmlInstructionCode . "#expected li span { position: absolute; margin-left: -1.3em; }";
-		
-		$htmlInstructionCode = $htmlInstructionCode . "#sequence { list-style-type: none; margin: 0; padding: 0; width: 50%; }";
-		$htmlInstructionCode = $htmlInstructionCode . "#sequence li { margin: 0 3px 3px 3px; padding: 0.4em; padding-left: 1.5em; font-size: 1.0em; width: 40px; height: 15px; background-image: url(\"" . $styleVO->getResourcePath()  ."images/gradient.jpg\");}";
-		$htmlInstructionCode = $htmlInstructionCode . "#sequence li span { position: absolute; margin-left: -1.3em; }";
-		
-		$htmlInstructionCode = $htmlInstructionCode . "#output { list-style-type: none; margin: 0; padding: 0; width: 50%; }";
-		$htmlInstructionCode = $htmlInstructionCode . "#output li { margin: 0 3px 3px 3px; padding: 0.4em; padding-left: 1.5em; font-size: 1.0em; width: 40px; height: 15px; background-image: url(\"" . $styleVO->getResourcePath()  ."images/gradient.jpg\");}";
-		$htmlInstructionCode = $htmlInstructionCode . "#output li span { position: absolute; margin-left: -1.3em; }";
-		
-		$htmlInstructionCode = $htmlInstructionCode . "#sequence2 { list-style-type: none; margin: 0; padding: 0; width: 50%; }";
-		$htmlInstructionCode = $htmlInstructionCode . "#sequence2 li { margin: 0 3px 3px 3px; padding: 0.4em; padding-left: 1.5em; font-size: 1.0em; width: 40px; height: 15px; background-image: url(\"" . $styleVO->getResourcePath()  ."images/gradient.jpg\");}";
-		$htmlInstructionCode = $htmlInstructionCode . "#sequence2 li span { position: absolute; margin-left: -1.3em; }";
-		
-		$htmlInstructionCode = $htmlInstructionCode . "#output2 { list-style-type: none; margin: 0; padding: 0; width: 50%; }";
-		$htmlInstructionCode = $htmlInstructionCode . "#output2 li { margin: 0 3px 3px 3px; padding: 0.4em; padding-left: 1.5em; font-size: 1.0em; width: 40px; height: 15px; background-image: url(\"" . $styleVO->getResourcePath()  ."images/gradient.jpg\");}";
-		$htmlInstructionCode = $htmlInstructionCode . "#output2 li span { position: absolute; margin-left: -1.3em; }";
-		
-		
-		$htmlInstructionCode = $htmlInstructionCode . "</style>";
 		
 		$htmlInstructionCode = $htmlInstructionCode. "<script type='text/javascript'>";
 
@@ -78,6 +51,7 @@ class SequenceHTMLFormatter implements iHTMLContentFormatter{
 		$htmlInstructionCode = $htmlInstructionCode . " }";
 		$htmlInstructionCode = $htmlInstructionCode . " var n = currOrder.length;";
 		$htmlInstructionCode = $htmlInstructionCode . " score = Math.round((1 - (itemArray.length * sum / (n * (n * n - 1)))) * 50 + 50);";
+		
 		$htmlInstructionCode = $htmlInstructionCode . " if(score<=0){";
 		$htmlInstructionCode = $htmlInstructionCode . " document.getElementById('score').innerHTML=''+0;}";
 		$htmlInstructionCode = $htmlInstructionCode . " else if(score>100){";
@@ -90,6 +64,7 @@ class SequenceHTMLFormatter implements iHTMLContentFormatter{
 		$htmlInstructionCode = $htmlInstructionCode . " if (flag == itemArray.length) {";
 		$htmlInstructionCode = $htmlInstructionCode . " document.getElementById('score').innerHTML=''+100;";
 		$htmlInstructionCode = $htmlInstructionCode . " score=100;";
+		$htmlInstructionCode = $htmlInstructionCode . " initScore=score;";
 		$htmlInstructionCode = $htmlInstructionCode . " gameOver(score);}";
 		$htmlInstructionCode = $htmlInstructionCode . " else {";
 		$htmlInstructionCode = $htmlInstructionCode . " document.getElementById('score').innerHTML=''+score;}";
@@ -151,18 +126,13 @@ class SequenceHTMLFormatter implements iHTMLContentFormatter{
 		$htmlInstructionCode = $htmlInstructionCode . "$('#sortable').append( liItems.join('') );";
 		$htmlInstructionCode = $htmlInstructionCode . " var items = document.getElementById(\"sortable\").getElementsByTagName(\"li\");";
 		$htmlInstructionCode = $htmlInstructionCode . "calcScore(sampleArray,items);";
-		
+		$htmlInstructionCode = $htmlInstructionCode . "if(initScore==100) {";
+		$htmlInstructionCode = $htmlInstructionCode . "play();";
+		$htmlInstructionCode = $htmlInstructionCode . " }";
 		
 		$htmlInstructionCode = $htmlInstructionCode . "var liItems4 = [];";
 		$htmlInstructionCode = $htmlInstructionCode . "var liItems5 = [];";
-	
-		//$htmlInstructionCode = $htmlInstructionCode . "liItems4.push('<span class=\"Label\"><font color=\"black\"><center>Your Sequence</center></font></span>');";
-	
-		//$htmlInstructionCode = $htmlInstructionCode . "liItems5.push('<span class=\"Label\"><font color=\"black\"><center>Correct Sequence</center></font></span>');";
-		/* $htmlInstructionCode = $htmlInstructionCode . "liItems4.push('<li></li>');";
-		
-		$htmlInstructionCode = $htmlInstructionCode . "liItems5.push('<li></li>');"; */
-		
+			
 		$htmlInstructionCode = $htmlInstructionCode . "liItems5.push('<br/>');";
 		$htmlInstructionCode = $htmlInstructionCode . "liItems4.push('<br/>');";
 		$htmlInstructionCode = $htmlInstructionCode . "$.each(sampleArray,function(i,item){";
@@ -179,7 +149,6 @@ class SequenceHTMLFormatter implements iHTMLContentFormatter{
 		$htmlInstructionCode = $htmlInstructionCode . "function changeLevel(timerVal){";
 		$htmlInstructionCode = $htmlInstructionCode . "play();";
 		$htmlInstructionCode = $htmlInstructionCode . "changeMinuteAndTime(timerVal);";
-		//$htmlInstructionCode = $htmlInstructionCode . "document.getElementById('counter').innerHTML=timerVal;";
 		$htmlInstructionCode = $htmlInstructionCode . "changeDiv('none','block','none','block','none','false');";
 		$htmlInstructionCode = $htmlInstructionCode . "document.getElementById('pauseButton').style.display='inline';";
 		$htmlInstructionCode = $htmlInstructionCode . "document.getElementById('play').style.display='none';";
@@ -222,7 +191,6 @@ class SequenceHTMLFormatter implements iHTMLContentFormatter{
  		$htmlInstructionCode = $htmlInstructionCode . "if( document.getElementById('items').style.display == 'block'){";
  		$htmlInstructionCode = $htmlInstructionCode . "time = time - 1;";
  		$htmlInstructionCode = $htmlInstructionCode . "changeMinuteAndTime(time);";
-  		//$htmlInstructionCode = $htmlInstructionCode . "i.innerHTML = parseInt(i.innerHTML)-1;";
   		$htmlInstructionCode = $htmlInstructionCode . "}";
   		$htmlInstructionCode = $htmlInstructionCode . "if (time <= 0) {";
   		$htmlInstructionCode = $htmlInstructionCode . "gameOver(document.getElementById('score').toString());";
@@ -241,7 +209,6 @@ class SequenceHTMLFormatter implements iHTMLContentFormatter{
  		$htmlInstructionCode = $htmlInstructionCode . "var minutes = document.getElementById('minute');";
  		$htmlInstructionCode = $htmlInstructionCode . "var seconds = document.getElementById('seconds');";
  		$htmlInstructionCode = $htmlInstructionCode . "pausedTime = parseInt(minutes.innerHTML * 60,10) + parseInt(seconds.innerHTML,10);";
- 		//$htmlInstructionCode = $htmlInstructionCode . "pausedTime = document.getElementById('counter').innerHTML;";
  		$htmlInstructionCode = $htmlInstructionCode . "changeDiv('none','none','block','block','none','false');";
  		$htmlInstructionCode = $htmlInstructionCode . "document.getElementById('pauseButton').style.display='none';";
  		$htmlInstructionCode = $htmlInstructionCode . "document.getElementById('play').style.display='inline';";
@@ -251,8 +218,6 @@ class SequenceHTMLFormatter implements iHTMLContentFormatter{
   		$htmlInstructionCode = $htmlInstructionCode . " var userArray = document.getElementById(\"sortable\").getElementsByTagName(\"li\");";
  		$htmlInstructionCode = $htmlInstructionCode . "var liItems1 = [];";
  	
- 		//$htmlInstructionCode = $htmlInstructionCode . "liItems1.push('<span class=\"Label\"><font color=\"black\">Your</font></span>');";
- 		//$htmlInstructionCode = $htmlInstructionCode . "liItems1.push('<br/><span class=\"Label\"><font color=\"black\">Sequence</font></span>');";
  		$htmlInstructionCode = $htmlInstructionCode . "for(var i=0;i<userArray.length;i++){";
  		$htmlInstructionCode = $htmlInstructionCode . "if((sampleArray.indexOf(userArray[i].childNodes[0].nodeValue)+1) != (i+1)){";
   		$htmlInstructionCode = $htmlInstructionCode . "liItems1.push('<li id='+(i+1)+'><font color=\"#FF4747\">' + (sampleArray.indexOf(userArray[i].childNodes[0].nodeValue)+1) + '</font></li>');";
@@ -264,9 +229,6 @@ class SequenceHTMLFormatter implements iHTMLContentFormatter{
  			
  		$htmlInstructionCode = $htmlInstructionCode . "var liItems2 = [];";
  		$htmlInstructionCode = $htmlInstructionCode . "var liItems3 = [];";
- 	//	$htmlInstructionCode = $htmlInstructionCode . "liItems3.push('<span class=\"Label\"><center><font color=\"black\">Correct</font></center></span>');";
- 		//$htmlInstructionCode = $htmlInstructionCode . "liItems3.push('<span class=\"Label\"><center><font color=\"black\">Sequence</font></center></span>');";
-	//	$htmlInstructionCode = $htmlInstructionCode . "liItems2.push('<div><br/><br/></div>');";
 		$htmlInstructionCode = $htmlInstructionCode . "$.each(sampleArray,function(i,item){";
  		$htmlInstructionCode = $htmlInstructionCode . "liItems2.push('<li id='+(i+1)+'><font color=\"#FFCE9C\">' + item + '</font></li>');";
  		$htmlInstructionCode = $htmlInstructionCode . "liItems3.push('<li id='+(i+1)+'><font color=\"#FFCE9C\">' + (i+1) + '</font></li>');";
@@ -289,20 +251,19 @@ class SequenceHTMLFormatter implements iHTMLContentFormatter{
  		$htmlInstructionCode = $htmlInstructionCode . "function onclickPlay() { ";
  		$htmlInstructionCode = $htmlInstructionCode . "if(pausedTime != null){";
  		$htmlInstructionCode = $htmlInstructionCode . "changeDiv('none','block','none','block','none','false');";
- 		//$htmlInstructionCode = $htmlInstructionCode . "document.getElementById('counter').innerHTML=pausedTime;";
- 		$htmlInstructionCode = $htmlInstructionCode . "changeMinuteAndTime(pausedTime);";
+  		$htmlInstructionCode = $htmlInstructionCode . "changeMinuteAndTime(pausedTime);";
  		$htmlInstructionCode = $htmlInstructionCode . "}else{"; 		
   		$htmlInstructionCode = $htmlInstructionCode . "changeDiv('none','block','none','block','none','true');";
   		
   		 if($dataVO->getUse1() == "yes"){
   			$timer = $dataVO->getTimer1();
-  			//$htmlInstructionCode = $htmlInstructionCode . "document.getElementById(\"level1\").style.backgroundImage=\"url('". $styleVO->getResourcePath()  ."images/sequence/level1_button0002.png')\";";
+  			$htmlInstructionCode = $htmlInstructionCode . "document.getElementById(\"level1\").checked=true;";
   		}else if($dataVO->getUse2() == 'yes'){
   			$timer = $dataVO->getTimer2();
-  			//$htmlInstructionCode = $htmlInstructionCode . "document.getElementById(\"level2\").style.backgroundImage=\"url('". $styleVO->getResourcePath()  ."images/sequence/level2_button0002.png')\";";
+  			$htmlInstructionCode = $htmlInstructionCode . "document.getElementById(\"level2\").checked=true;";
   		}else{
   			$timer = $dataVO->getTimer3();
-  			//$htmlInstructionCode = $htmlInstructionCode . "document.getElementById(\"level3\").style.backgroundImage=\"url('". $styleVO->getResourcePath()  ."images/sequence/level3_button0002.png')\";";
+  			$htmlInstructionCode = $htmlInstructionCode . "document.getElementById(\"level3\").checked=true;";
   		}
   		  		
  		$htmlInstructionCode = $htmlInstructionCode . "changeLevel(" . $timer . ");";
@@ -315,7 +276,6 @@ class SequenceHTMLFormatter implements iHTMLContentFormatter{
 		$htmlInstructionCode = $htmlInstructionCode . "var minutes = document.getElementById('minute');";
 		$htmlInstructionCode = $htmlInstructionCode . "var seconds = document.getElementById('seconds');";
 		$htmlInstructionCode = $htmlInstructionCode . "pausedTime = parseInt(minutes.innerHTML * 60,10) + parseInt(seconds.innerHTML,10);";
- 		//$htmlInstructionCode = $htmlInstructionCode . "pausedTime = document.getElementById('counter').innerHTML;";
  		$htmlInstructionCode = $htmlInstructionCode . "changeDiv('block','none','none','block','none','false');";
  		$htmlInstructionCode = $htmlInstructionCode . "document.getElementById('pauseButton').style.display='none';";
  		$htmlInstructionCode = $htmlInstructionCode . "document.getElementById('play').style.display='inline';";
@@ -325,7 +285,6 @@ class SequenceHTMLFormatter implements iHTMLContentFormatter{
  		$htmlInstructionCode = $htmlInstructionCode . "function changeMinuteAndTime(time) { ";
  		$htmlInstructionCode = $htmlInstructionCode . "newMinutes = Math.floor(time/60);";
  		$htmlInstructionCode = $htmlInstructionCode . "newSeconds = time%60;";
- 		//$htmlInstructionCode = $htmlInstructionCode . "}alert(newMinutes);alert(newSeconds);";
  		$htmlInstructionCode = $htmlInstructionCode . "if(newMinutes<10){";
  		$htmlInstructionCode = $htmlInstructionCode . "newMinutes = \"0\" + newMinutes;";
  		$htmlInstructionCode = $htmlInstructionCode . "}";
@@ -342,9 +301,10 @@ class SequenceHTMLFormatter implements iHTMLContentFormatter{
 		
 	}
 	public function formInstructionContentHTML($dataVO,$styleVO){
+		$height = ((($dataVO->getSampleSize() - 7) * 30 ) + 280);
 		$htmlInstructionCode = "<div class='main' id='main'>";
 		$htmlInstructionCode = $htmlInstructionCode . "<h2 style= \" color: #".$styleVO->getTitleColor(). "; \">" . $dataVO->getDisplayTitle() . "</h2>";
-		$htmlInstructionCode = $htmlInstructionCode . "<div class='instructions' id='instructions'>";
+		$htmlInstructionCode = $htmlInstructionCode . "<div class='instructions' id='instructions' style=\"height:". $height ."px;\">";
 		$htmlInstructionCode = $htmlInstructionCode . "<h2>Instructions:</h2>";
 		
 		$instructions = $styleVO->getInitialInstructions();
@@ -373,8 +333,8 @@ class SequenceHTMLFormatter implements iHTMLContentFormatter{
 	}
 	public function formGameContentHTML($dataVO,$styleVO){
 		
-		$height = ((($dataVO->getSampleSize() - 7) * 30 ) + 300);
-		$midHeight = (($height / 2) - 50) ;
+		$height = ((($dataVO->getSampleSize() - 7) * 30 ) + 280);
+		$midHeight = (($height / 2) - 90) ;
 		$htmlInstructionCode = "<div id='items' class='game' style=\"height:". $height ."px;\">";
 		$itemList = $dataVO->getChildInfo();
 		$itemPrefix = "ITEM";
@@ -408,6 +368,11 @@ class SequenceHTMLFormatter implements iHTMLContentFormatter{
 
 		$htmlInstructionCode = $htmlInstructionCode . "<font color=\"#FFCE9C\">";
 		$htmlInstructionCode = $htmlInstructionCode . "<div class='sequenceIndex' >";
+		$htmlInstructionCode = $htmlInstructionCode . "<table height=\"7%\"><tr>";
+		$htmlInstructionCode = $htmlInstructionCode . "<td width=\"15%\" text-align=\"center\"></td>";
+		
+		$htmlInstructionCode = $htmlInstructionCode . "<td width=\"20%\" text-align=\"center\"></td>";
+		$htmlInstructionCode = $htmlInstructionCode . "</tr></table>";
 		$htmlInstructionCode = $htmlInstructionCode . "<ul id=\"output2\" class='yourOutput'>";
 		$htmlInstructionCode = $htmlInstructionCode . "</ul>";
 		
@@ -418,6 +383,11 @@ class SequenceHTMLFormatter implements iHTMLContentFormatter{
 		
 				
 		$htmlInstructionCode = $htmlInstructionCode . "<div class='playerOrder'>";
+		$htmlInstructionCode = $htmlInstructionCode . "<table height=\"7%\"><tr>";
+		$htmlInstructionCode = $htmlInstructionCode . "<td width=\"15%\" text-align=\"center\"></td>";
+		
+		$htmlInstructionCode = $htmlInstructionCode . "<td width=\"20%\" text-align=\"center\"></td>";
+		$htmlInstructionCode = $htmlInstructionCode . "</tr></table>";
 		$htmlInstructionCode = $htmlInstructionCode . "<ul id=\"sortable\">";
 		$htmlInstructionCode = $htmlInstructionCode . "</ul>";
 		$htmlInstructionCode = $htmlInstructionCode . "</div>";
@@ -430,9 +400,9 @@ class SequenceHTMLFormatter implements iHTMLContentFormatter{
 		
 		$htmlInstructionCode = $htmlInstructionCode . "<div id='end' class='gameOver' style=\"height:". $height ."px;\">";
 		$htmlInstructionCode = $htmlInstructionCode . "<table><tr>";
-		$htmlInstructionCode = $htmlInstructionCode . "<td width=\"15%\" class='Label 'text-align=\"center\">Your Sequence</td>";
+		$htmlInstructionCode = $htmlInstructionCode . "<td width=\"15%\" text-align=\"center\">Your Sequence</td>";
 		
-		$htmlInstructionCode = $htmlInstructionCode . "<td width=\"15%\" class='Label' text-align=\"center\">Correct Sequence</td>";
+		$htmlInstructionCode = $htmlInstructionCode . "<td width=\"20%\" text-align=\"center\">Correct Sequence</td>";
 		$htmlInstructionCode = $htmlInstructionCode . "<td></td>";
 		$htmlInstructionCode = $htmlInstructionCode . "</tr></table>";
 		$htmlInstructionCode = $htmlInstructionCode . "<div class='sequenceIndex'>";
@@ -457,32 +427,35 @@ class SequenceHTMLFormatter implements iHTMLContentFormatter{
 		$htmlInstructionCode = $htmlInstructionCode ."<div id='controls' class='navigation'>";
 		$htmlInstructionCode = $htmlInstructionCode ."<span class='controls' id='controls'>";
 		$htmlInstructionCode = $htmlInstructionCode ."<input type='submit' name='instruction' class='instructionsButton' id='instruction' value='' onClick=\"onclickBack()\"/>";
-		$htmlInstructionCode = $htmlInstructionCode ."<input name='sound' type='button' class='muteButton' id='Mute' value='' onClick=\"setAudioFlag()\" style=\"background-image: url(". $styleVO->getResourcePath()  ."/images/sequence/sound_button0001.png);\"/>";
+		$htmlInstructionCode = $htmlInstructionCode ."<input name='sound' type='button' class='muteButton' id='Mute' value='' onClick=\"setAudioFlag()\"/>";
 		$htmlInstructionCode = $htmlInstructionCode ."</span>";
 		$htmlInstructionCode = $htmlInstructionCode ."<span class='playPause' id='playPause'>";
 		$htmlInstructionCode = $htmlInstructionCode ."<input name='play' type='submit' class='playButton' id='play' value='' onClick=\"onclickPlay()\"/>";
 		$htmlInstructionCode = $htmlInstructionCode ."<input name='pause' type='button' class='pauseButton' id='pauseButton' value='' onClick=\"pauseResume()\" />";
 		$htmlInstructionCode = $htmlInstructionCode ."</span>";
 		$htmlInstructionCode = $htmlInstructionCode ."<span class='levels' id='levels'>";
-		$htmlInstructionCode = $htmlInstructionCode ."<label class='levelLabel'>Level</label>";
+		$htmlInstructionCode = $htmlInstructionCode ."<label class='levelLabel'>Level </label>";
+		
 		if($Level1Disabled){
-			$htmlInstructionCode = $htmlInstructionCode ."<input name='level1' type='submit' class='level1ButtonDisabled' id='level1' value='' onClick=\"changeLevel(" . $dataVO->getTimer1() . ")\" disabled />";
+			$htmlInstructionCode = $htmlInstructionCode ."<input name='Level' type='radio' id='level1' value='1' onClick=\"changeLevel(" . $dataVO->getTimer1() . ")\" disabled ><span class=\"levelDisabled\">1</span></input>";
+		
 		}else{
-			$htmlInstructionCode = $htmlInstructionCode ."<input name='level1' type='submit' class='level1Button' id='level1' value='' onClick=\"changeLevel(" . $dataVO->getTimer1() . ")\"/>";
+			$htmlInstructionCode = $htmlInstructionCode ."<input name='Level' type='radio' id='level1' value='1' onClick=\"changeLevel(" . $dataVO->getTimer1() . ")\"><span class=\"levelEnabled\">1</span></input>";
 		}
 		
 		if($Level2Disabled){
-			$htmlInstructionCode = $htmlInstructionCode ."<input name='level2' type='submit' class='level2ButtonDisabled' id='level2' value='' onClick=\"changeLevel(" . $dataVO->getTimer2() . ")\" disabled />";
+			$htmlInstructionCode = $htmlInstructionCode ."<input name='Level' type='radio' id='level2' value='2' onClick=\"changeLevel(" . $dataVO->getTimer2() . ")\" disabled ><span class=\"levelDisabled\">2</span></input>";
 		}else{
-			$htmlInstructionCode = $htmlInstructionCode ."<input name='level2' type='submit' class='level2Button' id='level2' value='' onClick=\"changeLevel(" . $dataVO->getTimer2() . ")\"/>";
+			$htmlInstructionCode = $htmlInstructionCode ."<input name='Level' type='radio' id='level2' value='2' onClick=\"changeLevel(" . $dataVO->getTimer2() . ")\"  ><span class=\"levelEnabled\">2</span></input>";
 		}
 		
 		if($Level3Disabled){
-			$htmlInstructionCode = $htmlInstructionCode ."<input name='level3' type='submit' class='level3ButtonDisabled' id='level3' value='' onClick=\"changeLevel(" . $dataVO->getTimer3() . ")\" disabled />";
-		}else{
-			$htmlInstructionCode = $htmlInstructionCode ."<input name='level3' type='submit' class='level3Button' id='level3' value='' onClick=\"changeLevel(" . $dataVO->getTimer3() . ")\"/>";
-		}
+			$htmlInstructionCode = $htmlInstructionCode ."<input name='Level' type='radio' id='level3' value='3' onClick=\"changeLevel(" . $dataVO->getTimer3() . ")\" disabled ><span class=\"levelDisabled\">3</span></input>";
 		
+		}else{
+			$htmlInstructionCode = $htmlInstructionCode ."<input name='Level' type='radio' id='level3' value='3' onClick=\"changeLevel(" . $dataVO->getTimer3() . ")\"><span class=\"levelEnabled\">3</span></input>";
+		
+		}		
 		$htmlInstructionCode = $htmlInstructionCode ."</span>";
 		$htmlInstructionCode = $htmlInstructionCode ."<span id='timer' class='timer'>";
 		$htmlInstructionCode = $htmlInstructionCode ."<label class='timerLabel'>Time </label><label class='timerValue'><span id=\"minute\">". $minutes ."</span>:<span id=\"seconds\">".$seconds ."</span></label>";

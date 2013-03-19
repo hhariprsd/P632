@@ -6,7 +6,7 @@ require_once('SequenceChildVO.php');
 require_once('Parser.php');
 require_once('SequenceHTMLFormatter.php');
 require_once('HTMLContentFormatter.php');
-
+require_once('CategorizeHTMLFormatter.php');
 
 /**
  * This functions forms the HTML content with the XML content that needs to be displayed
@@ -33,6 +33,21 @@ function formHTMLContent($dataVO,$styleVO){
 			$instructionContent = $htmlFormatter->formInstructionSection($dataVO, $styleVO);
 			$gameContent = $htmlFormatter->formGameSection($dataVO, $styleVO);
 				
+		}catch(Exception $e){
+			throw $e;
+		}
+	}else if($dataVO->getGameType() == 'CATEGORIZE'){
+		try{
+			$categorizeHTMLFormatter = new CategorizeHTMLFormatter();
+			$htmlFormatter = new HTMLContentFormatter();
+			$htmlFormatter->setHTMLFormatterObject($categorizeHTMLFormatter);
+		
+			// Forms the various sections of the HTML document.
+				
+			$headerContent = $htmlFormatter->formHeaderSection($dataVO, $styleVO);
+			$instructionContent = $htmlFormatter->formInstructionSection($dataVO, $styleVO);
+			$gameContent = $htmlFormatter->formGameSection($dataVO, $styleVO);
+		
 		}catch(Exception $e){
 			throw $e;
 		}

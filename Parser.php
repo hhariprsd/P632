@@ -3,6 +3,7 @@ require_once ('SequenceDataParser.php');
 require_once ('DataParser.php');
 require_once ('SequenceStyleParser.php');
 require_once ('StyleParser.php');
+require_once ('CategorizeDataParser.php');
 /**
  * This functions parses the style file xml and returns a style vo object
  *
@@ -50,6 +51,13 @@ function parseDataFile($dataFileContent){
 			$dataParser->setDataParserObject($seqParser);
 			$dataVO = $dataParser->parseData($dataFileContent);
 				
+		}else if($xmlObject->getName() == 'CATEGORIZE'){
+			
+			$categorizeParser = new CategorizeDataParser();
+			$dataParser->setDataParserObject($categorizeParser);
+			$dataVO = $dataParser->parseData($dataFileContent);
+			
+			
 		}else{
 			throw new Exception("Data File Format Not Supported");
 		}

@@ -62,7 +62,7 @@ function formHTMLContent($dataVO,$styleVO){
   <head>
 $headerContent
   </head>
-  <body>
+  <body onload="setHeight()">
 $instructionContent
 $gameContent
   </body>

@@ -9,8 +9,8 @@ class SequenceHTMLFormatter implements iHTMLContentFormatter{
 		$htmlInstructionCode = "";
 		$htmlInstructionCode = $htmlInstructionCode . "<link href=\"http://code.jquery.com/ui/1.10.0/themes/base/jquery-ui.css\" rel=\"stylesheet\"> ";
  		$htmlInstructionCode = $htmlInstructionCode . "<link href=\"http://code.jquery.com/ui/1.10.0/themes/ui-lightness/jquery-ui.css\" rel=\"stylesheet\">";
- 		$htmlInstructionCode = $htmlInstructionCode . "<link href=\"". $styleVO->getResourcePath()  ."css/Sequence.css\" rel=\"stylesheet\">";
- 		$htmlInstructionCode = $htmlInstructionCode . "<title>" . $dataVO->getDisplayTitle() . "</title>";
+ 		$htmlInstructionCode = $htmlInstructionCode . "<link href=\"". $styleVO->getResourcePath()  ."css/Sequence.css\" rel=\"stylesheet\">";	
+ 		$htmlInstructionCode = $htmlInstructionCode . "<title>" . $dataVO->getDisplayTitle() . " (SEQUENCE)</title>";
 		$htmlInstructionCode = $htmlInstructionCode . "<script src=\"http://code.jquery.com/jquery-1.9.0.js\"></script>";
 		$htmlInstructionCode = $htmlInstructionCode . "<script src=\"http://code.jquery.com/ui/1.10.0/jquery-ui.js\"></script>";
 		$htmlInstructionCode = $htmlInstructionCode . "<script src=\"" . $styleVO->getResourcePath()  ."js/jqueryuitouchpunchmin.js\"></script>";
@@ -24,6 +24,7 @@ class SequenceHTMLFormatter implements iHTMLContentFormatter{
 		$htmlInstructionCode = $htmlInstructionCode . "var audioFlag = 1;";
 		$htmlInstructionCode = $htmlInstructionCode . "var pausedTime = null;";
 		$htmlInstructionCode = $htmlInstructionCode . "var initScore = 0;";
+		$htmlInstructionCode = $htmlInstructionCode . " function setHeight() { $('#instructions').height((((".$dataVO->getSampleSize()." - 7) * 30 ) + 280));}";
 		
 		$itemList = $dataVO->getChildInfo();
 		
@@ -163,6 +164,13 @@ class SequenceHTMLFormatter implements iHTMLContentFormatter{
         $htmlInstructionCode = $htmlInstructionCode . "document.getElementById('pause').style.display=id3;";
 		$htmlInstructionCode = $htmlInstructionCode . "document.getElementById('end').style.display=id5;";
 		$htmlInstructionCode = $htmlInstructionCode . "setaudio();";
+		$htmlInstructionCode = $htmlInstructionCode . "var divHeight = (((".$dataVO->getSampleSize()." - 7) * 30 ) + 280);";
+		$htmlInstructionCode = $htmlInstructionCode . "$('#instructions').height(divHeight);";
+		$htmlInstructionCode = $htmlInstructionCode . "$('#items').height(divHeight);";
+		$htmlInstructionCode = $htmlInstructionCode . "$('#pause').height(divHeight);";
+		$htmlInstructionCode = $htmlInstructionCode . "$('#gameOverLink').css('padding-top',((divHeight/2) - 90)+'px');";
+		$htmlInstructionCode = $htmlInstructionCode . "$('#end').height(divHeight);";
+		
 		$htmlInstructionCode = $htmlInstructionCode . "}";
 		
 		$htmlInstructionCode = $htmlInstructionCode . "function setaudio(){";
@@ -301,10 +309,10 @@ class SequenceHTMLFormatter implements iHTMLContentFormatter{
 		
 	}
 	public function formInstructionContentHTML($dataVO,$styleVO){
-		$height = ((($dataVO->getSampleSize() - 7) * 30 ) + 280);
+		
 		$htmlInstructionCode = "<div class='main' id='main'>";
-		$htmlInstructionCode = $htmlInstructionCode . "<h2 style= \" color: #".$styleVO->getTitleColor(). "; \">" . $dataVO->getDisplayTitle() . "</h2>";
-		$htmlInstructionCode = $htmlInstructionCode . "<div class='instructions' id='instructions' style=\"height:". $height ."px;\">";
+		$htmlInstructionCode = $htmlInstructionCode . "<h1 style= \" color: #".$styleVO->getTitleColor(). "; \">" . $dataVO->getDisplayTitle() . "</h1>";
+		$htmlInstructionCode = $htmlInstructionCode . "<div class='instructions' id='instructions' >";
 		$htmlInstructionCode = $htmlInstructionCode . "<h2>Instructions:</h2>";
 		
 		$instructions = $styleVO->getInitialInstructions();
@@ -332,10 +340,9 @@ class SequenceHTMLFormatter implements iHTMLContentFormatter{
 		
 	}
 	public function formGameContentHTML($dataVO,$styleVO){
+				
+		$htmlInstructionCode = "<div id='items' class='game' >";
 		
-		$height = ((($dataVO->getSampleSize() - 7) * 30 ) + 280);
-		$midHeight = (($height / 2) - 90) ;
-		$htmlInstructionCode = "<div id='items' class='game' style=\"height:". $height ."px;\">";
 		$itemList = $dataVO->getChildInfo();
 		$itemPrefix = "ITEM";
 		$itemCount = 1;
@@ -368,10 +375,10 @@ class SequenceHTMLFormatter implements iHTMLContentFormatter{
 
 		$htmlInstructionCode = $htmlInstructionCode . "<font color=\"#FFCE9C\">";
 		$htmlInstructionCode = $htmlInstructionCode . "<div class='sequenceIndex' >";
-		$htmlInstructionCode = $htmlInstructionCode . "<table height=\"7%\"><tr>";
-		$htmlInstructionCode = $htmlInstructionCode . "<td width=\"15%\" text-align=\"center\"></td>";
+		$htmlInstructionCode = $htmlInstructionCode . "<table  class='tableHeight'><tr>";
+		$htmlInstructionCode = $htmlInstructionCode . "<td class='yourSequenceTable'></td>";
 		
-		$htmlInstructionCode = $htmlInstructionCode . "<td width=\"20%\" text-align=\"center\"></td>";
+		$htmlInstructionCode = $htmlInstructionCode . "<td class='correctSequenceTable'></td>";
 		$htmlInstructionCode = $htmlInstructionCode . "</tr></table>";
 		$htmlInstructionCode = $htmlInstructionCode . "<ul id=\"output2\" class='yourOutput'>";
 		$htmlInstructionCode = $htmlInstructionCode . "</ul>";
@@ -383,10 +390,10 @@ class SequenceHTMLFormatter implements iHTMLContentFormatter{
 		
 				
 		$htmlInstructionCode = $htmlInstructionCode . "<div class='playerOrder'>";
-		$htmlInstructionCode = $htmlInstructionCode . "<table height=\"7%\"><tr>";
-		$htmlInstructionCode = $htmlInstructionCode . "<td width=\"15%\" text-align=\"center\"></td>";
+		$htmlInstructionCode = $htmlInstructionCode . "<table class='tableHeight'><tr>";
+		$htmlInstructionCode = $htmlInstructionCode . "<td class='yourSequenceTable'></td>";
 		
-		$htmlInstructionCode = $htmlInstructionCode . "<td width=\"20%\" text-align=\"center\"></td>";
+		$htmlInstructionCode = $htmlInstructionCode . "<td class='correctSequenceTable'></td>";
 		$htmlInstructionCode = $htmlInstructionCode . "</tr></table>";
 		$htmlInstructionCode = $htmlInstructionCode . "<ul id=\"sortable\">";
 		$htmlInstructionCode = $htmlInstructionCode . "</ul>";
@@ -394,15 +401,15 @@ class SequenceHTMLFormatter implements iHTMLContentFormatter{
 		$htmlInstructionCode = $htmlInstructionCode . "</font>";
 		$htmlInstructionCode = $htmlInstructionCode . "</div>";
 		
-		$htmlInstructionCode = $htmlInstructionCode . "<div id='pause' class='pause' style=\"height:". $height ."px;\">";
+		$htmlInstructionCode = $htmlInstructionCode . "<div id='pause' class='pause' >";
 		$htmlInstructionCode = $htmlInstructionCode . "<p>The game is paused.</p><p> Press PLAY to resume.</p>";
 		$htmlInstructionCode = $htmlInstructionCode . "</div>";
 		
-		$htmlInstructionCode = $htmlInstructionCode . "<div id='end' class='gameOver' style=\"height:". $height ."px;\">";
+		$htmlInstructionCode = $htmlInstructionCode . "<div id='end' class='gameOver' >";
 		$htmlInstructionCode = $htmlInstructionCode . "<table><tr>";
-		$htmlInstructionCode = $htmlInstructionCode . "<td width=\"15%\" text-align=\"center\">Your Sequence</td>";
+		$htmlInstructionCode = $htmlInstructionCode . "<td class='yourSequenceTable'>Your Sequence</td>";
 		
-		$htmlInstructionCode = $htmlInstructionCode . "<td width=\"20%\" text-align=\"center\">Correct Sequence</td>";
+		$htmlInstructionCode = $htmlInstructionCode . "<td class='correctSequenceTable'>Correct Sequence</td>";
 		$htmlInstructionCode = $htmlInstructionCode . "<td></td>";
 		$htmlInstructionCode = $htmlInstructionCode . "</tr></table>";
 		$htmlInstructionCode = $htmlInstructionCode . "<div class='sequenceIndex'>";
@@ -418,8 +425,10 @@ class SequenceHTMLFormatter implements iHTMLContentFormatter{
 		$htmlInstructionCode = $htmlInstructionCode . "</ul>";
 		$htmlInstructionCode = $htmlInstructionCode . "</div>";
 		
-		$htmlInstructionCode = $htmlInstructionCode . "<div style=\"float:left; width:30%; padding-top:". $midHeight ."px;\">";
+		$htmlInstructionCode = $htmlInstructionCode . "<div>";
+		$htmlInstructionCode = $htmlInstructionCode . "<span id='gameOverLink' class='gameOverLink' >";
 		$htmlInstructionCode = $htmlInstructionCode . "<center><p>GAME OVER!!!!</p><p> <a href=\"javascript:location.reload(true);\">CLICK HERE TO PLAY AGAIN</a></p></center>";
+		$htmlInstructionCode = $htmlInstructionCode . "</span>";
 		$htmlInstructionCode = $htmlInstructionCode . "</div>";
 		
 		$htmlInstructionCode = $htmlInstructionCode . "</div>";

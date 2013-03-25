@@ -9,11 +9,57 @@ class CategorizeHTMLFormatter implements iHTMLContentFormatter{
 		$htmlInstructionCode = $htmlInstructionCode . "<link href=\"". $styleVO->getResourcePath()  ."css/Categorize.css\" rel=\"stylesheet\">";
 		$htmlInstructionCode = $htmlInstructionCode . "<title>" . $dataVO->getDisplayTitle() . "</title>";
 		
-		$htmlInstructionCode = $htmlInstructionCode. "<script type='text/javascript'>";
+		$htmlInstructionCode = $htmlInstructionCode . "<script type='text/javascript'>";
+		$htmlInstructionCode = $htmlInstructionCode . "var OriginalItemArray = new Array();";
+		$htmlInstructionCode = $htmlInstructionCode . "var i=0;";
 		$htmlInstructionCode = $htmlInstructionCode . "function changeDiv(id1,id2){";
+		
 		$htmlInstructionCode = $htmlInstructionCode . "document.getElementById(id1).style.display='block';";
 		$htmlInstructionCode = $htmlInstructionCode . "document.getElementById(id2).style.display='none';";
 		$htmlInstructionCode = $htmlInstructionCode . "}";
+		
+		$categories = $dataVO->getCategories();
+		foreach($categories as $category){
+			$items = $category->getItems();
+			foreach($items as $item){
+				$htmlInstructionCode = $htmlInstructionCode . "OriginalItemArray.push(\"" . $item->getItem() ."\");";
+			}
+		}
+		
+		//$htmlInstructionCode = $htmlInstructionCode . "alert('items '+OriginalItemArray);";
+		$htmlInstructionCode = $htmlInstructionCode . "function onclickBack() { ";
+	
+ 		//$htmlInstructionCode = $htmlInstructionCode . "pausedTime = document.getElementById('counter').innerHTML;";
+ 		$htmlInstructionCode = $htmlInstructionCode . "changeDiv('none','block');";
+ 		$htmlInstructionCode = $htmlInstructionCode . "}";
+		
+		$htmlInstructionCode = $htmlInstructionCode. "function shuffle(){";
+		$htmlInstructionCode = $htmlInstructionCode. "itemArray = new Array();";
+		$htmlInstructionCode = $htmlInstructionCode. "sampleArray = new Array();";
+		$htmlInstructionCode = $htmlInstructionCode. "shuffleArray = new Array();";
+		$htmlInstructionCode = $htmlInstructionCode. "itemArray = OriginalItemArray.slice(0,OriginalItemArray.length);";
+		$htmlInstructionCode = $htmlInstructionCode. "if(itemArray.length>".$dataVO->getSampleSize().")";
+		$htmlInstructionCode = $htmlInstructionCode. "{";
+		$htmlInstructionCode = $htmlInstructionCode. "for (var i = ".$dataVO->getSampleSize()." - 1; i >= 0; i--) {";
+		$htmlInstructionCode = $htmlInstructionCode. "var randomIndex = Math.floor((Math.random() * (itemArray.length))%7);";
+		$htmlInstructionCode = $htmlInstructionCode. "sampleArray.push(itemArray.splice(randomIndex,1).toString());";
+		$htmlInstructionCode = $htmlInstructionCode. "}}";
+		$htmlInstructionCode = $htmlInstructionCode. "else{";
+		$htmlInstructionCode = $htmlInstructionCode. "for (var i = itemArray.length - 1; i >= 0; i--) {";
+		$htmlInstructionCode = $htmlInstructionCode. "var randomIndex = Math.floor(Math.random() * (i + 1));";
+		$htmlInstructionCode = $htmlInstructionCode. "sampleArray.push(itemArray.splice(randomIndex,1).toString());";
+		$htmlInstructionCode = $htmlInstructionCode. "}}";
+		$htmlInstructionCode = $htmlInstructionCode. "shuffleArray = sampleArray.slice(0,sampleArray.length);";
+		$htmlInstructionCode = $htmlInstructionCode. "for(var i=0;i<sampleArray.length;i++) {";
+		$htmlInstructionCode = $htmlInstructionCode. "for(var j=0;j<sampleArray.length-i-1;j++) {";
+		$htmlInstructionCode = $htmlInstructionCode. "if(OriginalItemArray.indexOf(sampleArray[j]+\"\") > OriginalItemArray.indexOf(sampleArray[j+1]+\"\")) {";
+		$htmlInstructionCode = $htmlInstructionCode. "temp = sampleArray[j];";
+		$htmlInstructionCode = $htmlInstructionCode. "sampleArray[j]= sampleArray[j+1];";
+		$htmlInstructionCode = $htmlInstructionCode. "sampleArray[j+1]= temp;";
+		$htmlInstructionCode = $htmlInstructionCode. "}";
+		$htmlInstructionCode = $htmlInstructionCode. "}}";
+		$htmlInstructionCode = $htmlInstructionCode. "alert('Shuffled Items as per the Sample Size retrieved : '+shuffleArray);";
+		$htmlInstructionCode = $htmlInstructionCode. "}";
 		$htmlInstructionCode = $htmlInstructionCode. "</script>";
 		
 		return $htmlInstructionCode;
@@ -37,12 +83,15 @@ class CategorizeHTMLFormatter implements iHTMLContentFormatter{
 				}
 			}
 		}else{
-			$htmlInstructionCode = $htmlInstructionCode . "<p>In this game format, Sequence, a list of ordered items (e.g., stages of a process, steps in a procedure, or elements of a hierarchy) is displayed out of sequence. Your objective is to arrange the list into the correct order before time runs out.</p> ";
-			$htmlInstructionCode = $htmlInstructionCode . "<ul> ";
-			$htmlInstructionCode = $htmlInstructionCode . "<li>Level 1 provides you the most time to arrange the items</li>";
-			$htmlInstructionCode = $htmlInstructionCode . "<li>Level 2 provides you less time than Level 1 to arrange the items</li>";
-			$htmlInstructionCode = $htmlInstructionCode . "<li>Level 3 provides you the least time to arrange the items</li>";
-			$htmlInstructionCode = $htmlInstructionCode . "</ul>";
+			$htmlInstructionCode = $htmlInstructionCode . "<table>";
+			$htmlInstructionCode = $htmlInstructionCode . "<tr><td class='defaultInstructions'>";
+			$htmlInstructionCode = $htmlInstructionCode . "<p>In this game format, Categorize, you will see on the right half of the game screen two to five categories displayed vertically (e.g., Animals, Vegetables, Minerals). On the left half of the screen you will see words or phrases that correspond with or relate to one of the categories (e.g., Tiger). Your objective is to choose the category under which you think the item on the left falls (e.g., 'Tiger' falls under category 'Animals'). </p> ";
+			$htmlInstructionCode = $htmlInstructionCode . "</td></tr>";
+			$htmlInstructionCode = $htmlInstructionCode . "<tr><td class='defaultInstructions'></td></tr>";
+			$htmlInstructionCode = $htmlInstructionCode . "<tr><td class='defaultInstructions'>";
+			$htmlInstructionCode = $htmlInstructionCode . "<p> With each increase in level, you will find that the time allowed in which to choose a category decreases. Click <?> for more details instructions </p> ";
+			$htmlInstructionCode = $htmlInstructionCode . "</td></tr>";
+			$htmlInstructionCode = $htmlInstructionCode . "</table>";
 		}
 		
 		$htmlInstructionCode = $htmlInstructionCode . "</div>";
@@ -79,9 +128,11 @@ class CategorizeHTMLFormatter implements iHTMLContentFormatter{
 		}
 		
 			
-		$htmlInstructionCode = "";
-		
+		$htmlInstructionCode = "";		
 		$htmlInstructionCode = $htmlInstructionCode ."<div id='game' class='game'>";
+		$htmlInstructionCode = $htmlInstructionCode ."<table>";
+		$htmlInstructionCode = $htmlInstructionCode ."<tr><td class='item'>";
+		$htmlInstructionCode = $htmlInstructionCode ."<div id='item'>";
 		$categories = $dataVO->getCategories();
 		foreach($categories as $category){
 			$htmlInstructionCode = $htmlInstructionCode ."<table>";
@@ -89,21 +140,34 @@ class CategorizeHTMLFormatter implements iHTMLContentFormatter{
 			$items = $category->getItems();
 			foreach($items as $item){
 				$htmlInstructionCode = $htmlInstructionCode ."<tr><td>" . $item->getItem() . "</td></tr>";
+				
 			}
 			
 			$htmlInstructionCode = $htmlInstructionCode ."</table>";
 		}
 		
 		$htmlInstructionCode = $htmlInstructionCode ."</div>";
+		$htmlInstructionCode = $htmlInstructionCode ."</td><td class='categories'>";
+		$htmlInstructionCode = $htmlInstructionCode ."<div id='categories'>";
+		$categories = $dataVO->getCategories();
+		$htmlInstructionCode = $htmlInstructionCode ."<table>";
+		foreach($categories as $category){
+			$htmlInstructionCode = $htmlInstructionCode ."<tr><td><input type=\"button\" class=\"categoryButton\" name=\"" . $category->getTitle() . "\" value=\"" . $category->getTitle() . "\"/></td></tr>";
+		}
+		$htmlInstructionCode = $htmlInstructionCode ."</table>";
+		$htmlInstructionCode = $htmlInstructionCode ."</div>";
+		$htmlInstructionCode = $htmlInstructionCode ."</td></tr></table>";
+		$htmlInstructionCode = $htmlInstructionCode ."</div>";
 		
 		$htmlInstructionCode = $htmlInstructionCode ."<div id='controls' class='navigation'>";
 		$htmlInstructionCode = $htmlInstructionCode ."<span class='controls' id='controls'>";
-		$htmlInstructionCode = $htmlInstructionCode ."<input type='submit' name='instruction' class='instructionsButton' id='instruction' value='' onClick=\"onclickBack()\"/>";
+		$htmlInstructionCode = $htmlInstructionCode ."<input type='submit' name='instruction' class='instructionsButton' id='instruction' value='' onClick=\"changeDiv('instructions','game')\"/>";
 		$htmlInstructionCode = $htmlInstructionCode ."<input name='sound' type='button' class='muteButton' id='Mute' value='' onClick=\"setAudioFlag()\"/>";
 		$htmlInstructionCode = $htmlInstructionCode ."</span>";
 		$htmlInstructionCode = $htmlInstructionCode ."<span class='playPause' id='playPause'>";
 		$htmlInstructionCode = $htmlInstructionCode ."<input name='play' type='submit' class='playButton' id='play' value='' onClick=\"changeDiv('game','instructions')\"/>";
 		$htmlInstructionCode = $htmlInstructionCode ."<input name='pause' type='button' class='pauseButton' id='pauseButton' value='' onClick=\"pauseResume()\" />";
+		$htmlInstructionCode = $htmlInstructionCode ."<input name='Shuffle' type='button' value='Shuffle Items' id='shuffle' value='' onClick=\"shuffle()\" />";
 		$htmlInstructionCode = $htmlInstructionCode ."</span>";
 		$htmlInstructionCode = $htmlInstructionCode ."<span class='levels' id='levels'>";
 		$htmlInstructionCode = $htmlInstructionCode ."<label class='levelLabel'>Level </label>";

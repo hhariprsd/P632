@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Styles resource_path="http://cs.indiana.edu/cgi-pub/manisubr/Resources/" >
+  <SoundDisplay>on</SoundDisplay>
+  <TitleColor>D62226</TitleColor>
+  <ColorScheme>cs-001</ColorScheme>
+  <logo>none</logo>
+
+  <InitialInstructions>WHAT YOU SEE: Items displayed one at a time on the left side. Two to five categories displayed on the right side.
+WHAT YOU DO: Read each item and click the appropriate category.
+WHAT YOU GET: If you correctly classify all the items before time runs out, you get 100 points.
+WHAT NEXT: When you play the game again, you get different items in a different order.</InitialInstructions>
+
+</Styles>

@@ -75,7 +75,7 @@ class SequenceHTMLFormatter implements iHTMLContentFormatter{
 		$htmlInstructionCode = $htmlInstructionCode . "function setAudioFlag(){";
 		$htmlInstructionCode = $htmlInstructionCode . "if(audioFlag==0)";
 		$htmlInstructionCode = $htmlInstructionCode . "{audioFlag=1; document.getElementById('Mute').style.color='#000000';";
-		$htmlInstructionCode = $htmlInstructionCode . "document.getElementById(\"Mute\").style.backgroundImage=\"url('". $styleVO->getResourcePath()  ."images/sequence/sound_button0001.png')\";";
+		$htmlInstructionCode = $htmlInstructionCode . "document.getElementById(\"Mute\").style.backgroundImage=\"url('". $styleVO->getResourcePath()  ."images/sequence/sound_button0002.png')\";";
 		$htmlInstructionCode = $htmlInstructionCode ."}";
 
 		$htmlInstructionCode = $htmlInstructionCode . "else";
@@ -254,6 +254,7 @@ class SequenceHTMLFormatter implements iHTMLContentFormatter{
  		$htmlInstructionCode = $htmlInstructionCode . "pausedTime=null;";
  		$htmlInstructionCode = $htmlInstructionCode . "document.getElementById('pauseButton').style.display='none';";
  		$htmlInstructionCode = $htmlInstructionCode . "document.getElementById('play').style.display='inline';";
+ 		$htmlInstructionCode = $htmlInstructionCode . "document.getElementById('gameOverContent').style.display='block';";
  		$htmlInstructionCode = $htmlInstructionCode . "}";
  		
  		$htmlInstructionCode = $htmlInstructionCode . "function onclickPlay() { ";
@@ -425,14 +426,14 @@ class SequenceHTMLFormatter implements iHTMLContentFormatter{
 		$htmlInstructionCode = $htmlInstructionCode . "</ul>";
 		$htmlInstructionCode = $htmlInstructionCode . "</div>";
 		
-		$htmlInstructionCode = $htmlInstructionCode . "<div>";
-		$htmlInstructionCode = $htmlInstructionCode . "<span id='gameOverLink' class='gameOverLink' >";
-		$htmlInstructionCode = $htmlInstructionCode . "<center><p>GAME OVER!!!!</p><p> <a href=\"javascript:location.reload(true);\">CLICK HERE TO PLAY AGAIN</a></p></center>";
-		$htmlInstructionCode = $htmlInstructionCode . "</span>";
 		$htmlInstructionCode = $htmlInstructionCode . "</div>";
 		
+		$htmlInstructionCode = $htmlInstructionCode . "<div class=\"gameOverLink\">";
+		$htmlInstructionCode = $htmlInstructionCode . "<span id=\"gameOverContent\" class=\"gameOverContent\">";
+		$htmlInstructionCode = $htmlInstructionCode . "GAME OVER <br/>";
+		$htmlInstructionCode = $htmlInstructionCode . "<a href=\"javascript:location.reload(true);\">CLICK HERE TO PLAY AGAIN</a>";
+		$htmlInstructionCode = $htmlInstructionCode . "</span>";
 		$htmlInstructionCode = $htmlInstructionCode . "</div>";
-				
 		$htmlInstructionCode = $htmlInstructionCode ."<div id='controls' class='navigation'>";
 		$htmlInstructionCode = $htmlInstructionCode ."<span class='controls' id='controls'>";
 		$htmlInstructionCode = $htmlInstructionCode ."<input type='submit' name='instruction' class='instructionsButton' id='instruction' value='' onClick=\"onclickBack()\"/>";

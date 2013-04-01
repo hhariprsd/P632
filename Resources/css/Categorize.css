@@ -1,0 +1,259 @@
+.main {
+padding : 10px;
+height : 100%;
+width : 550px;
+}
+.instructions {
+height : 300px;
+width : 550px;
+font-size : 12px;
+background-color : #F7DFBD;
+border-top-width : thin;
+border-right-width : thin;
+border-bottom-width : thin;
+border-left-width : thin;
+border-top-style : solid;
+border-right-style : solid;
+border-bottom-style : solid;
+border-left-style : solid;
+}
+.game {
+background-color : #F7DFBD;
+display : none;
+width : 550px;
+border-top-width : thin;
+border-right-width : thin;
+border-bottom-width : thin;
+border-left-width : thin;
+border-top-style : solid;
+border-right-style : solid;
+border-bottom-style : solid;
+border-left-style : solid;
+}
+.pause {
+background-color : #F7DFBD;
+display : none;
+width : 550px;
+border-top-width : thin;
+border-right-width : thin;
+border-bottom-width : thin;
+border-left-width : thin;
+border-top-style : solid;
+border-right-style : solid;
+border-bottom-style : solid;
+border-left-style : solid;
+font-size : 16px;
+font-style : italic;
+font-weight : bold;
+text-align : center;
+}
+.gameOver {
+background-color : #F7DFBD;
+display : none;
+width : 550px;
+border-top-width : thin;
+border-right-width : thin;
+border-bottom-width : thin;
+border-left-width : thin;
+border-top-style : solid;
+border-right-style : solid;
+border-bottom-style : solid;
+border-left-style : solid;
+}
+.navigation {
+background-color : #666;
+height : 30px;
+width : 550px;
+border-top-width : thin;
+border-right-width : thin;
+border-bottom-width : thin;
+border-left-width : thin;
+border-top-style : solid;
+border-right-style : solid;
+border-bottom-style : solid;
+border-left-style : solid;
+padding-top : 10px;
+padding-bottom : 10px;
+padding-left : 0;
+}
+.sequenceIndex {
+float : left;
+width : 30%;
+}
+.yourOutput {
+float : left;
+width : 10%;
+text-align : center;
+}
+.correctOutput {
+float : left;
+width : 40%;
+}
+.playerOrder {
+float : left;
+width : 60%;
+}
+.Label {
+font-size : 13px;
+padding-bottom : 2px;
+text-align : center;
+}
+.timer {
+font-size : 14px;
+font-style : italic;
+color : #FFF;
+}
+.timerValue {
+color : #FFF;
+font-size : 18px;
+}
+.levelLabel {
+font-size : 18px;
+color : #F7DFBD;
+font-style : normal;
+font-weight : bold;
+padding-top : 20px;
+padding-right : 0;
+padding-bottom : 0;
+padding-left : 0;
+}
+.timerLabel {
+font-size : 18px;
+color : #F7DFBD;
+font-style : normal;
+font-weight : bold;
+padding-top : 20px;
+}
+.scoreLabel {
+font-size : 18px;
+color : #F7DFBD;
+font-style : normal;
+font-weight : bold;
+padding-top : 20px;
+}
+.scoreValue {
+font-size : 18px;
+color : #FFF;
+}
+.controls {
+padding-top : 10px;
+padding-right : 15px;
+padding-bottom : 10px;
+}
+.playPause {
+padding-top : 10px;
+padding-right : 15px;
+padding-bottom : 10px;
+}
+.levels {
+padding-top : 10px;
+padding-right : 15px;
+padding-bottom : 10px;
+}
+.timer {
+padding-top : 10px;
+padding-right : 15px;
+padding-bottom : 10px;
+}
+.score {
+padding-top : 10px;
+padding-right : 15px;
+padding-bottom : 10px;
+border : #000 none 5px;
+}
+.instructionsButton {
+background-image : url("../images/sequence/instructions_button0001.png");
+background-color : #666;
+border-top-style : none;
+border-right-style : none;
+border-bottom-style : none;
+border-left-style : none;
+height : 30px;
+width : 27px;
+padding-left : 10px;
+padding-right : 20px;
+}
+.muteButton {
+background-image : url("../images/sequence/sound_button0002.png");
+background-color : #666;
+border-top-style : none;
+border-right-style : none;
+border-bottom-style : none;
+border-left-style : none;
+height : 26px;
+width : 26px;
+padding-right : 20px;
+}
+.playButton {
+background-image : url("../images/sequence/play_button0001.png");
+background-color : #666;
+border-top-style : none;
+border-right-style : none;
+border-bottom-style : none;
+border-left-style : none;
+height : 30px;
+width : 26px;
+padding-left : 10px;
+padding-right : 20px;
+}
+.pauseButton {
+background-image : url("../images/sequence/pause_button0001.png");
+background-color : #666;
+border-top-style : none;
+border-right-style : none;
+border-bottom-style : none;
+border-left-style : none;
+height : 30px;
+width : 27px;
+padding-left : 10px;
+padding-right : 20px;
+display : none;
+}
+html {
+font-family : Helvetica, Arial, sans-serif;
+}
+.levelDisabled {
+color : #660000;
+}
+.levelEnabled {
+color : #00FF00;
+}
+.item{
+width:400px;
+}
+.categories{
+width:150px;
+vertical-align:text-top;
+}
+
+.categoryButton{
+width:150px;
+background-color : #F7DFBD;
+height: 40px;
+}
+
+.defaultInstructions {
+padding-left:20px;
+padding-right:20px;
+padding-top:10px;
+}
+
+.gameOverLink{
+background-color : #F7DFBD;
+height : 40px;
+width : 550px;
+border-top-width : thin;
+border-right-width : thin;
+border-bottom-width : thin;
+border-left-width : thin;
+//border-top-style : solid;
+border-right-style : solid;
+border-bottom-style : solid;
+border-left-style : solid;
+text-align:center;
+}
+
+.gameOverContent{
+display:none;
+}
+s

@@ -7,13 +7,17 @@ class CategorizeHTMLFormatter implements iHTMLContentFormatter{
 		
 		$htmlInstructionCode = "";
 		$htmlInstructionCode = $htmlInstructionCode . "<link href=\"". $styleVO->getResourcePath()  ."css/Categorize.css\" rel=\"stylesheet\">";
-		$htmlInstructionCode = $htmlInstructionCode . "<title>" . $dataVO->getDisplayTitle() . "</title>";
+		$htmlInstructionCode = $htmlInstructionCode . "<title>" . $dataVO->getDisplayTitle() . " (CATEGORIZE)</title>";
 		
 		$htmlInstructionCode = $htmlInstructionCode . "<script type='text/javascript'>";
-		$htmlInstructionCode = $htmlInstructionCode . "var OriginalItemArray = new Array();";
-		$htmlInstructionCode = $htmlInstructionCode . "var i=0;";
+		$htmlInstructionCode = $htmlInstructionCode . "var allItems = new Array();";
+		$htmlInstructionCode = $htmlInstructionCode . "var categoryItemsArray = new Array();";
+		$htmlInstructionCode = $htmlInstructionCode . "var shuffleListOfItems = null;";
+		$htmlInstructionCode = $htmlInstructionCode . "var pausedTime = null;";
+		$htmlInstructionCode = $htmlInstructionCode . "var gameItemIndex=0;";
+		$htmlInstructionCode = $htmlInstructionCode . "var audioFlag=1;";
+		$htmlInstructionCode = $htmlInstructionCode . "var timerValue=0;";
 		$htmlInstructionCode = $htmlInstructionCode . "function changeDiv(id1,id2){";
-		
 		$htmlInstructionCode = $htmlInstructionCode . "document.getElementById(id1).style.display='block';";
 		$htmlInstructionCode = $htmlInstructionCode . "document.getElementById(id2).style.display='none';";
 		$htmlInstructionCode = $htmlInstructionCode . "}";
@@ -21,47 +25,170 @@ class CategorizeHTMLFormatter implements iHTMLContentFormatter{
 		$categories = $dataVO->getCategories();
 		foreach($categories as $category){
 			$items = $category->getItems();
+			$htmlInstructionCode = $htmlInstructionCode . "var itemArray = new Array();";
 			foreach($items as $item){
-				$htmlInstructionCode = $htmlInstructionCode . "OriginalItemArray.push(\"" . $item->getItem() ."\");";
+				$htmlInstructionCode = $htmlInstructionCode . "allItems.push(\"" . $item->getItem() ."\");";
+				$htmlInstructionCode = $htmlInstructionCode . "itemArray.push(\"" .  $item->getItem() ."\");";
 			}
+			$htmlInstructionCode = $htmlInstructionCode . "categoryItemsArray[\"".$category->getTitle() . "\"] = itemArray;";
 		}
 		
-		//$htmlInstructionCode = $htmlInstructionCode . "alert('items '+OriginalItemArray);";
-		$htmlInstructionCode = $htmlInstructionCode . "function onclickBack() { ";
+		
+		$htmlInstructionCode = $htmlInstructionCode . "function play() { ";
+		$htmlInstructionCode = $htmlInstructionCode . "shuffleListOfItems = shuffle();";
+		$htmlInstructionCode = $htmlInstructionCode . "document.getElementById(\"item\").innerHTML = shuffleListOfItems[gameItemIndex];";
+		$htmlInstructionCode = $htmlInstructionCode . "gameItemIndex++;";
+		$htmlInstructionCode = $htmlInstructionCode . "changeDiv('game','instructions');";
+		$htmlInstructionCode = $htmlInstructionCode . "enablePauseButton();";
+		$htmlInstructionCode = $htmlInstructionCode . "}";
+		
+		$htmlInstructionCode = $htmlInstructionCode . "function setAudioFlag(){";
+		$htmlInstructionCode = $htmlInstructionCode . "if(audioFlag==0)";
+		$htmlInstructionCode = $htmlInstructionCode . "{audioFlag=1; document.getElementById('Mute').style.color='#000000';";
+		$htmlInstructionCode = $htmlInstructionCode . "document.getElementById(\"Mute\").style.backgroundImage=\"url('". $styleVO->getResourcePath()  ."images/sequence/sound_button0002.png')\";";
+		$htmlInstructionCode = $htmlInstructionCode ."}";
+		
+		$htmlInstructionCode = $htmlInstructionCode . "else";
+		
+		$htmlInstructionCode = $htmlInstructionCode . "{audioFlag=0; document.getElementById('Mute').style.color='#808080';";
+		$htmlInstructionCode = $htmlInstructionCode . "document.getElementById(\"Mute\").style.backgroundImage=\"url('". $styleVO->getResourcePath()  ."images/sequence/mute_button0003.png')\";}";
+		$htmlInstructionCode = $htmlInstructionCode ."}";
+		
+		$htmlInstructionCode = $htmlInstructionCode . "function pauseResume(){";
+		$htmlInstructionCode = $htmlInstructionCode . "var minutes = document.getElementById('minute');";
+		$htmlInstructionCode = $htmlInstructionCode . "var seconds = document.getElementById('seconds');";
+		$htmlInstructionCode = $htmlInstructionCode . "pausedTime = parseInt(minutes.innerHTML * 60,10) + parseInt(seconds.innerHTML,10);";
+		$htmlInstructionCode = $htmlInstructionCode . "changeDiv('pause','game');";
+		$htmlInstructionCode = $htmlInstructionCode . "enablePlayButton();";
+		$htmlInstructionCode = $htmlInstructionCode . "}";
+		
+		$htmlInstructionCode = $htmlInstructionCode . "function validateMatch(buttonName) { ";
+		$htmlInstructionCode = $htmlInstructionCode . "var itemMatch = false;";
+		$htmlInstructionCode = $htmlInstructionCode . "var item = document.getElementById(\"item\").innerHTML;";
+		$htmlInstructionCode = $htmlInstructionCode . "if(buttonName!=null){";
+		$htmlInstructionCode = $htmlInstructionCode . "var selectedCategoryItems = new Array(); selectedCategoryItems = categoryItemsArray[buttonName];";
+		$htmlInstructionCode = $htmlInstructionCode . "for(var i=0;i<selectedCategoryItems.length;i++){";
+		$htmlInstructionCode = $htmlInstructionCode . "if(selectedCategoryItems[i] == item){";
+		$htmlInstructionCode = $htmlInstructionCode . "itemMatch = true;";
+		$htmlInstructionCode = $htmlInstructionCode . "if(audioFlag==1)";
+		$htmlInstructionCode = $htmlInstructionCode . "document.getElementById('correctSound').play();";
+		$htmlInstructionCode = $htmlInstructionCode . "alert('Matched');";
+		$htmlInstructionCode = $htmlInstructionCode . "break;";
+		$htmlInstructionCode = $htmlInstructionCode . "}";
+		$htmlInstructionCode = $htmlInstructionCode . "}";
+		$htmlInstructionCode = $htmlInstructionCode . "if(audioFlag==1 && itemMatch == false){";
+		$htmlInstructionCode = $htmlInstructionCode . "document.getElementById('incorrectSound').play();}";
+		$htmlInstructionCode = $htmlInstructionCode . "}";
+		$htmlInstructionCode = $htmlInstructionCode . "continueGame();";
+		$htmlInstructionCode = $htmlInstructionCode . "}";
+		
+		$htmlInstructionCode = $htmlInstructionCode . "function continueGame() { ";
+		$htmlInstructionCode = $htmlInstructionCode . "if(gameItemIndex>=shuffleListOfItems.length){";
+		$htmlInstructionCode = $htmlInstructionCode . "gameOver();";
+		$htmlInstructionCode = $htmlInstructionCode . "}else{";
+		$htmlInstructionCode = $htmlInstructionCode . "document.getElementById(\"item\").innerHTML = shuffleListOfItems[gameItemIndex];";
+		$htmlInstructionCode = $htmlInstructionCode . "gameItemIndex++;";
+		$htmlInstructionCode = $htmlInstructionCode . "}";
+		$htmlInstructionCode = $htmlInstructionCode . "changeMinuteAndTime(timerValue);";
+		$htmlInstructionCode = $htmlInstructionCode . "}";
+		
+		$htmlInstructionCode = $htmlInstructionCode . "function gameOver() { ";
+		$htmlInstructionCode = $htmlInstructionCode . "changeDiv('gameOver','game');";
+		$htmlInstructionCode = $htmlInstructionCode . "enablePlayButton();";
+		$htmlInstructionCode = $htmlInstructionCode . "document.getElementById('gameOverContent').style.display='block';";
+		$htmlInstructionCode = $htmlInstructionCode . "}";
+		
+		
+		$htmlInstructionCode = $htmlInstructionCode . "function onclickPlay() { ";
+		$htmlInstructionCode = $htmlInstructionCode . "if(pausedTime != null){";
+		$htmlInstructionCode = $htmlInstructionCode . "changeDiv('game','pause');";
+		$htmlInstructionCode = $htmlInstructionCode . "changeMinuteAndTime(pausedTime);";
+		$htmlInstructionCode = $htmlInstructionCode . "}else{";
+		$htmlInstructionCode = $htmlInstructionCode . "setInterval(function(){ countdown(); },1000);";
+		$htmlInstructionCode = $htmlInstructionCode . "changeDiv('game','instructions');";
+		
+		if($dataVO->getUse1() == "yes"){
+			$timer = $dataVO->getTimer1();
+			$htmlInstructionCode = $htmlInstructionCode . "document.getElementById(\"level1\").checked=true;";
+		}else if($dataVO->getUse2() == 'yes'){
+			$timer = $dataVO->getTimer2();
+			$htmlInstructionCode = $htmlInstructionCode . "document.getElementById(\"level2\").checked=true;";
+		}else{
+			$timer = $dataVO->getTimer3();
+			$htmlInstructionCode = $htmlInstructionCode . "document.getElementById(\"level3\").checked=true;";
+		}
+		$htmlInstructionCode = $htmlInstructionCode . "timerValue = ". $timer . ";"; 
+		$htmlInstructionCode = $htmlInstructionCode . "changeLevel(" . $timer . ");";
+		$htmlInstructionCode = $htmlInstructionCode . "}";
+		$htmlInstructionCode = $htmlInstructionCode . "enablePauseButton();";
+		$htmlInstructionCode = $htmlInstructionCode . "}";
+		
+		$htmlInstructionCode = $htmlInstructionCode . "function enablePauseButton() { ";
+		$htmlInstructionCode = $htmlInstructionCode . "document.getElementById('pauseButton').style.display='inline';";
+		$htmlInstructionCode = $htmlInstructionCode . "document.getElementById('play').style.display='none';";
+		$htmlInstructionCode = $htmlInstructionCode . "}";
+		
+		$htmlInstructionCode = $htmlInstructionCode . "function enablePlayButton() { ";
+		$htmlInstructionCode = $htmlInstructionCode . "document.getElementById('pauseButton').style.display='none';";
+		$htmlInstructionCode = $htmlInstructionCode . "document.getElementById('play').style.display='inline';";
+		$htmlInstructionCode = $htmlInstructionCode . "}";
+		
+		$htmlInstructionCode = $htmlInstructionCode . "function changeLevel(timerVal){";
+		$htmlInstructionCode = $htmlInstructionCode . "play();";
+		$htmlInstructionCode = $htmlInstructionCode . "changeMinuteAndTime(timerVal);";
+		$htmlInstructionCode = $htmlInstructionCode . "changeDiv('game','instructions');";
+		$htmlInstructionCode = $htmlInstructionCode . "document.getElementById('pauseButton').style.display='inline';";
+		$htmlInstructionCode = $htmlInstructionCode . "document.getElementById('play').style.display='none';";
+		$htmlInstructionCode = $htmlInstructionCode . "}";
+		
+		$htmlInstructionCode = $htmlInstructionCode . "function changeMinuteAndTime(time) { ";
+		$htmlInstructionCode = $htmlInstructionCode . "newMinutes = Math.floor(time/60);";
+		$htmlInstructionCode = $htmlInstructionCode . "newSeconds = time%60;";
+		$htmlInstructionCode = $htmlInstructionCode . "if(newMinutes<10){";
+		$htmlInstructionCode = $htmlInstructionCode . "newMinutes = \"0\" + newMinutes;";
+		$htmlInstructionCode = $htmlInstructionCode . "}";
+		$htmlInstructionCode = $htmlInstructionCode . "if(newSeconds<10){";
+		$htmlInstructionCode = $htmlInstructionCode . "newSeconds = \"0\" + newSeconds;";
+		$htmlInstructionCode = $htmlInstructionCode . "}";
+		$htmlInstructionCode = $htmlInstructionCode . "document.getElementById('minute').innerHTML=newMinutes;";
+		$htmlInstructionCode = $htmlInstructionCode . "document.getElementById('seconds').innerHTML=newSeconds;";
+		$htmlInstructionCode = $htmlInstructionCode . "}";
+		
+		$htmlInstructionCode = $htmlInstructionCode . "function countdown() { ";
+		$htmlInstructionCode = $htmlInstructionCode . "var minutes = document.getElementById('minute');";
+		$htmlInstructionCode = $htmlInstructionCode . "var seconds = document.getElementById('seconds');";
+		$htmlInstructionCode = $htmlInstructionCode . "if( document.getElementById('game').style.display == 'block'){";
+		$htmlInstructionCode = $htmlInstructionCode . "time = parseInt(minutes.innerHTML * 60,10) + parseInt(seconds.innerHTML,10);";
+		$htmlInstructionCode = $htmlInstructionCode . "time = time - 1;";
+		$htmlInstructionCode = $htmlInstructionCode . "changeMinuteAndTime(time);";
+		$htmlInstructionCode = $htmlInstructionCode . "if (time <= 0) {";
+		$htmlInstructionCode = $htmlInstructionCode . "validateMatch(null);";
+		$htmlInstructionCode = $htmlInstructionCode . "}";
+		$htmlInstructionCode = $htmlInstructionCode . "}";		
+		$htmlInstructionCode = $htmlInstructionCode . "}";
+		
+		
 	
- 		//$htmlInstructionCode = $htmlInstructionCode . "pausedTime = document.getElementById('counter').innerHTML;";
- 		$htmlInstructionCode = $htmlInstructionCode . "changeDiv('none','block');";
+		$htmlInstructionCode = $htmlInstructionCode . "function onclickBack() { ";
+		$htmlInstructionCode = $htmlInstructionCode . "changeDiv('none','block');";
  		$htmlInstructionCode = $htmlInstructionCode . "}";
 		
 		$htmlInstructionCode = $htmlInstructionCode. "function shuffle(){";
-		$htmlInstructionCode = $htmlInstructionCode. "itemArray = new Array();";
 		$htmlInstructionCode = $htmlInstructionCode. "sampleArray = new Array();";
-		$htmlInstructionCode = $htmlInstructionCode. "shuffleArray = new Array();";
-		$htmlInstructionCode = $htmlInstructionCode. "itemArray = OriginalItemArray.slice(0,OriginalItemArray.length);";
-		$htmlInstructionCode = $htmlInstructionCode. "if(itemArray.length>".$dataVO->getSampleSize().")";
+		$htmlInstructionCode = $htmlInstructionCode. "if(allItems.length>".$dataVO->getSampleSize().")";
 		$htmlInstructionCode = $htmlInstructionCode. "{";
 		$htmlInstructionCode = $htmlInstructionCode. "for (var i = ".$dataVO->getSampleSize()." - 1; i >= 0; i--) {";
-		$htmlInstructionCode = $htmlInstructionCode. "var randomIndex = Math.floor((Math.random() * (itemArray.length))%7);";
-		$htmlInstructionCode = $htmlInstructionCode. "sampleArray.push(itemArray.splice(randomIndex,1).toString());";
+		$htmlInstructionCode = $htmlInstructionCode. "var randomIndex = Math.floor((Math.random() * (allItems.length)));";
+		$htmlInstructionCode = $htmlInstructionCode. "sampleArray.push(allItems.splice(randomIndex,1).toString());";
 		$htmlInstructionCode = $htmlInstructionCode. "}}";
 		$htmlInstructionCode = $htmlInstructionCode. "else{";
 		$htmlInstructionCode = $htmlInstructionCode. "for (var i = itemArray.length - 1; i >= 0; i--) {";
 		$htmlInstructionCode = $htmlInstructionCode. "var randomIndex = Math.floor(Math.random() * (i + 1));";
-		$htmlInstructionCode = $htmlInstructionCode. "sampleArray.push(itemArray.splice(randomIndex,1).toString());";
+		$htmlInstructionCode = $htmlInstructionCode. "sampleArray.push(allItems.splice(randomIndex,1).toString());";
 		$htmlInstructionCode = $htmlInstructionCode. "}}";
-		$htmlInstructionCode = $htmlInstructionCode. "shuffleArray = sampleArray.slice(0,sampleArray.length);";
-		$htmlInstructionCode = $htmlInstructionCode. "for(var i=0;i<sampleArray.length;i++) {";
-		$htmlInstructionCode = $htmlInstructionCode. "for(var j=0;j<sampleArray.length-i-1;j++) {";
-		$htmlInstructionCode = $htmlInstructionCode. "if(OriginalItemArray.indexOf(sampleArray[j]+\"\") > OriginalItemArray.indexOf(sampleArray[j+1]+\"\")) {";
-		$htmlInstructionCode = $htmlInstructionCode. "temp = sampleArray[j];";
-		$htmlInstructionCode = $htmlInstructionCode. "sampleArray[j]= sampleArray[j+1];";
-		$htmlInstructionCode = $htmlInstructionCode. "sampleArray[j+1]= temp;";
-		$htmlInstructionCode = $htmlInstructionCode. "}";
-		$htmlInstructionCode = $htmlInstructionCode. "}}";
-		$htmlInstructionCode = $htmlInstructionCode. "alert('Shuffled Items as per the Sample Size retrieved : '+shuffleArray);";
+		$htmlInstructionCode = $htmlInstructionCode. "return sampleArray;";
 		$htmlInstructionCode = $htmlInstructionCode. "}";
 		$htmlInstructionCode = $htmlInstructionCode. "</script>";
-		
 		return $htmlInstructionCode;
 		
 	}
@@ -128,46 +255,39 @@ class CategorizeHTMLFormatter implements iHTMLContentFormatter{
 		}
 		
 			
-		$htmlInstructionCode = "";		
+		$htmlInstructionCode = "";
+		
 		$htmlInstructionCode = $htmlInstructionCode ."<div id='game' class='game'>";
 		$htmlInstructionCode = $htmlInstructionCode ."<table>";
 		$htmlInstructionCode = $htmlInstructionCode ."<tr><td class='item'>";
 		$htmlInstructionCode = $htmlInstructionCode ."<div id='item'>";
-		$categories = $dataVO->getCategories();
-		foreach($categories as $category){
-			$htmlInstructionCode = $htmlInstructionCode ."<table>";
-			$htmlInstructionCode = $htmlInstructionCode ."<tr><th>" . $category->getTitle() . "</th></tr>";
-			$items = $category->getItems();
-			foreach($items as $item){
-				$htmlInstructionCode = $htmlInstructionCode ."<tr><td>" . $item->getItem() . "</td></tr>";
-				
-			}
-			
-			$htmlInstructionCode = $htmlInstructionCode ."</table>";
-		}
-		
 		$htmlInstructionCode = $htmlInstructionCode ."</div>";
 		$htmlInstructionCode = $htmlInstructionCode ."</td><td class='categories'>";
 		$htmlInstructionCode = $htmlInstructionCode ."<div id='categories'>";
 		$categories = $dataVO->getCategories();
 		$htmlInstructionCode = $htmlInstructionCode ."<table>";
 		foreach($categories as $category){
-			$htmlInstructionCode = $htmlInstructionCode ."<tr><td><input type=\"button\" class=\"categoryButton\" name=\"" . $category->getTitle() . "\" value=\"" . $category->getTitle() . "\"/></td></tr>";
+			$htmlInstructionCode = $htmlInstructionCode ."<tr><td><input type=\"button\" class=\"categoryButton\" id=\"" . $category->getTitle() . "\" value=\"" . $category->getTitle() . "\" onClick='validateMatch(this.id)'/></td></tr>";
 		}
 		$htmlInstructionCode = $htmlInstructionCode ."</table>";
 		$htmlInstructionCode = $htmlInstructionCode ."</div>";
 		$htmlInstructionCode = $htmlInstructionCode ."</td></tr></table>";
 		$htmlInstructionCode = $htmlInstructionCode ."</div>";
-		
+		$htmlInstructionCode = $htmlInstructionCode . "<div id='pause' class='pause' >";
+		$htmlInstructionCode = $htmlInstructionCode . "<p>The game is paused.</p><p> Press PLAY to resume.</p>";
+		$htmlInstructionCode = $htmlInstructionCode . "</div>";
+		$htmlInstructionCode = $htmlInstructionCode . "<div id='gameOver' class='gameOver' >";
+		$htmlInstructionCode = $htmlInstructionCode . "<p>Game Over</p>";
+		$htmlInstructionCode = $htmlInstructionCode . "</div>";
 		$htmlInstructionCode = $htmlInstructionCode ."<div id='controls' class='navigation'>";
 		$htmlInstructionCode = $htmlInstructionCode ."<span class='controls' id='controls'>";
 		$htmlInstructionCode = $htmlInstructionCode ."<input type='submit' name='instruction' class='instructionsButton' id='instruction' value='' onClick=\"changeDiv('instructions','game')\"/>";
 		$htmlInstructionCode = $htmlInstructionCode ."<input name='sound' type='button' class='muteButton' id='Mute' value='' onClick=\"setAudioFlag()\"/>";
 		$htmlInstructionCode = $htmlInstructionCode ."</span>";
 		$htmlInstructionCode = $htmlInstructionCode ."<span class='playPause' id='playPause'>";
-		$htmlInstructionCode = $htmlInstructionCode ."<input name='play' type='submit' class='playButton' id='play' value='' onClick=\"changeDiv('game','instructions')\"/>";
+		$htmlInstructionCode = $htmlInstructionCode ."<input name='play' type='submit' class='playButton' id='play' value='' onClick=\"onclickPlay()\"/>";
 		$htmlInstructionCode = $htmlInstructionCode ."<input name='pause' type='button' class='pauseButton' id='pauseButton' value='' onClick=\"pauseResume()\" />";
-		$htmlInstructionCode = $htmlInstructionCode ."<input name='Shuffle' type='button' value='Shuffle Items' id='shuffle' value='' onClick=\"shuffle()\" />";
+		/* $htmlInstructionCode = $htmlInstructionCode ."<input name='Shuffle' type='button' value='Shuffle Items' id='shuffle' value='' onClick=\"shuffle()\" />"; */
 		$htmlInstructionCode = $htmlInstructionCode ."</span>";
 		$htmlInstructionCode = $htmlInstructionCode ."<span class='levels' id='levels'>";
 		$htmlInstructionCode = $htmlInstructionCode ."<label class='levelLabel'>Level </label>";
@@ -199,7 +319,8 @@ class CategorizeHTMLFormatter implements iHTMLContentFormatter{
 		$htmlInstructionCode = $htmlInstructionCode ."<span id='scoreBox' class='score'>";
 		$htmlInstructionCode = $htmlInstructionCode ."<label class='scoreLabel'>Score </label><label class='scoreValue'><span id=\"score\">0</span></label>";
 		$htmlInstructionCode = $htmlInstructionCode ."</span>";
-		$htmlInstructionCode = $htmlInstructionCode . "<audio id='sound' type='audio/wav' src='" . $styleVO->getResourcePath()  ."sounds/sequence_click.wav' preload='metadata'>";
+		$htmlInstructionCode = $htmlInstructionCode . "<audio id='correctSound' type='audio/wav' src='" . $styleVO->getResourcePath()  ."sounds/Categorize/correct.wav' preload='metadata'>";
+		$htmlInstructionCode = $htmlInstructionCode . "<audio id='incorrectSound' type='audio/wav' src='" . $styleVO->getResourcePath()  ."sounds/Categorize/incorrect.wav' preload='metadata'>";
 		$htmlInstructionCode = $htmlInstructionCode . "<audio id='applause' type='audio/wav' src='" . $styleVO->getResourcePath()  ."sounds/Clap.wav' preload>";
 		$htmlInstructionCode = $htmlInstructionCode ."</div>";
 		$htmlInstructionCode = $htmlInstructionCode ."</div>";

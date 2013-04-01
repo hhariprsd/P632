@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<CATEGORIZE ID="New Categorize Game" FileVersion="1.10" FinalTime="20" Info_Path="../runtime/instructions/" IsFinal="no" Sample_Order="random" Sample_Size="5" ShowFeedbackLights="yes" ShowScore="yes" StyleFile="categorize.xml" Timer1="60" Timer2="45" Timer3="30" TitleFontSize="24" UseHallOfFame="no" Use1="yes" Use2="yes" Use3="yes">
+  <DISPLAY_TITLE>New Categorize Game</DISPLAY_TITLE>
+  <CATEGORY>
+    <TITLE>TV Series</TITLE>
+    <ITEM>The big theory</ITEM>
+    <ITEM>How i met your mother</ITEM>
+    <ITEM>Friends</ITEM>
+    <ITEM>Hustle</ITEM>
+    <ITEM>Numbers</ITEM>
+    <ITEM>Supernatural</ITEM>
+    <ITEM>24</ITEM>
+  </CATEGORY>
+  <CATEGORY>
+    <TITLE>Movies</TITLE>
+    <ITEM>Inception</ITEM>
+    <ITEM>Star wars</ITEM>
+    <ITEM>Titanic</ITEM>
+    <ITEM>Die hard</ITEM>
+    <ITEM>The lord of the rings</ITEM>
+    <ITEM>Lincoln</ITEM>
+    <ITEM>Argo</ITEM>
+  </CATEGORY>
+</CATEGORIZE>

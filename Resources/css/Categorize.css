@@ -1,6 +1,5 @@
 .main {
 padding : 10px;
-height : 100%;
 width : 550px;
 }
 .instructions {
@@ -21,6 +20,7 @@ border-left-style : solid;
 background-color : #F7DFBD;
 display : none;
 width : 550px;
+height : 300px;
 border-top-width : thin;
 border-right-width : thin;
 border-bottom-width : thin;
@@ -34,6 +34,7 @@ border-left-style : solid;
 background-color : #F7DFBD;
 display : none;
 width : 550px;
+height : 300px;
 border-top-width : thin;
 border-right-width : thin;
 border-bottom-width : thin;
@@ -51,6 +52,7 @@ text-align : center;
 background-color : #F7DFBD;
 display : none;
 width : 550px;
+height : 300px;
 border-top-width : thin;
 border-right-width : thin;
 border-bottom-width : thin;
@@ -256,4 +258,32 @@ text-align:center;
 .gameOverContent{
 display:none;
 }
-s
+.lights{
+background-color:#666;
+width:583px;
+position:relative;
+}
+
+.lightLabel{
+background-color:#666;
+padding-left:15px;
+padding-right:10px;
+}
+
+.lightLabelCorrect{
+background-color:#00FF00;
+padding-left:15px;
+padding-right:10px;
+
+}
+
+.lightLabelInCorrect{
+background-color:#FF0000;
+padding-left:15px;
+padding-right:10px;
+
+}
+.tablealign{
+background-color:#666;
+float: right;	
+}

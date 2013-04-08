@@ -24,7 +24,9 @@ class SequenceHTMLFormatter implements iHTMLContentFormatter{
 		$htmlInstructionCode = $htmlInstructionCode . "var audioFlag = 1;";
 		$htmlInstructionCode = $htmlInstructionCode . "var pausedTime = null;";
 		$htmlInstructionCode = $htmlInstructionCode . "var initScore = 0;";
-		$htmlInstructionCode = $htmlInstructionCode . " function setHeight() { $('#instructions').height((((".$dataVO->getSampleSize()." - 7) * 30 ) + 280));}";
+		$htmlInstructionCode = $htmlInstructionCode . "var gameOverFlag = 0;";
+		$htmlInstructionCode = $htmlInstructionCode . " function setHeight() { $('#instructions').height((((".$dataVO->getSampleSize()." - 7) * 30 ) + 280));";
+		$htmlInstructionCode = $htmlInstructionCode . "}";
 		
 		$itemList = $dataVO->getChildInfo();
 		
@@ -128,7 +130,10 @@ class SequenceHTMLFormatter implements iHTMLContentFormatter{
 		$htmlInstructionCode = $htmlInstructionCode . " var items = document.getElementById(\"sortable\").getElementsByTagName(\"li\");";
 		$htmlInstructionCode = $htmlInstructionCode . "calcScore(sampleArray,items);";
 		$htmlInstructionCode = $htmlInstructionCode . "if(initScore==100) {";
+		$htmlInstructionCode = $htmlInstructionCode . "if(gameOverFlag==1) {initScore=0; gameOverFlag=0;";
+		$htmlInstructionCode = $htmlInstructionCode . "document.getElementById('gameOverContent').style.display = 'none';}";
 		$htmlInstructionCode = $htmlInstructionCode . "play();";
+
 		$htmlInstructionCode = $htmlInstructionCode . " }";
 		
 		$htmlInstructionCode = $htmlInstructionCode . "var liItems4 = [];";
@@ -136,6 +141,7 @@ class SequenceHTMLFormatter implements iHTMLContentFormatter{
 			
 		$htmlInstructionCode = $htmlInstructionCode . "liItems5.push('<br/>');";
 		$htmlInstructionCode = $htmlInstructionCode . "liItems4.push('<br/>');";
+
 		$htmlInstructionCode = $htmlInstructionCode . "$.each(sampleArray,function(i,item){";
 		$htmlInstructionCode = $htmlInstructionCode . "liItems5.push('<li id='+(i+1)+'></li>');";
 		$htmlInstructionCode = $htmlInstructionCode . "liItems4.push('<li id='+(i+1)+'><font color=\"#FFCE9C\">' + (i+1) + '</font></li>');";
@@ -196,15 +202,15 @@ class SequenceHTMLFormatter implements iHTMLContentFormatter{
  		$htmlInstructionCode = $htmlInstructionCode . "var seconds = document.getElementById('seconds');";
  		
  		$htmlInstructionCode = $htmlInstructionCode . "time = parseInt(minutes.innerHTML * 60,10) + parseInt(seconds.innerHTML,10);";
+ 		$htmlInstructionCode = $htmlInstructionCode . "if (time <= 0) {";
+ 		$htmlInstructionCode = $htmlInstructionCode . "gameOver(document.getElementById('score').toString());";
+ 		$htmlInstructionCode = $htmlInstructionCode . "exit();";
+ 		$htmlInstructionCode = $htmlInstructionCode . "}";	
  		$htmlInstructionCode = $htmlInstructionCode . "if( document.getElementById('items').style.display == 'block'){";
  		$htmlInstructionCode = $htmlInstructionCode . "time = time - 1;";
  		$htmlInstructionCode = $htmlInstructionCode . "changeMinuteAndTime(time);";
   		$htmlInstructionCode = $htmlInstructionCode . "}";
-  		$htmlInstructionCode = $htmlInstructionCode . "if (time <= 0) {";
-  		$htmlInstructionCode = $htmlInstructionCode . "gameOver(document.getElementById('score').toString());";
-  		$htmlInstructionCode = $htmlInstructionCode . "exit();";
-  		$htmlInstructionCode = $htmlInstructionCode . "}";
- 		$htmlInstructionCode = $htmlInstructionCode . "}";
+   		$htmlInstructionCode = $htmlInstructionCode . "}";
  		$htmlInstructionCode = $htmlInstructionCode . "setInterval(function(){ countdown(); },1000);"; 
  		 		
  		$htmlInstructionCode = $htmlInstructionCode . "function sortids() {";
@@ -223,6 +229,7 @@ class SequenceHTMLFormatter implements iHTMLContentFormatter{
  		$htmlInstructionCode = $htmlInstructionCode . "}";
  			
  		$htmlInstructionCode = $htmlInstructionCode . "function gameOver(score) { ";
+		$htmlInstructionCode = $htmlInstructionCode . "gameOverFlag = 1;";
   		$htmlInstructionCode = $htmlInstructionCode . " var userArray = document.getElementById(\"sortable\").getElementsByTagName(\"li\");";
  		$htmlInstructionCode = $htmlInstructionCode . "var liItems1 = [];";
  	

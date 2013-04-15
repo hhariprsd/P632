@@ -7,18 +7,23 @@ class SequenceStyleParser implements iStyleXMLParser{
 	public function parseStyleXML($styleFileContent){
 		$xmlObject = simplexml_load_string($styleFileContent);
 		$styleObject = new StyleVO();
-		
+
 		if(!($xmlObject) || (is_null($xmlObject))){
 			throw new Exception("Data File Empty / Parse Error");
 		}
-		
+
 		if(!(is_null($xmlObject['resource_path']))){
-			$styleObject->setResourcePath($xmlObject['resource_path']);
+			if((strlen($xmlObject['resource_path']) -1) == strrpos($xmlObject['resource_path'], "/")){
+				$styleObject->setResourcePath($xmlObject['resource_path']);
+			}else{
+				$styleObject->setResourcePath($xmlObject['resource_path']."/");
+			}
+				
 		}else{
 			$styleObject->setResourcePath("./");
 		}
-		
-		
+
+
 		$childTags = $xmlObject->children();
 		foreach($childTags as $child){
 			if($child->getName() == 'SoundDisplay'){
@@ -34,12 +39,12 @@ class SequenceStyleParser implements iStyleXMLParser{
 			}else{
 				throw new Exception("Style File Format Not Supported");
 			}
-		
-		}		
-		
+
+		}
+
 		return $styleObject;
 	}
-	
+
 }
 
 ?>

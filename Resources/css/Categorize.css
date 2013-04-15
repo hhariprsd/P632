@@ -1,99 +1,55 @@
 .main {
 padding : 10px;
-width : 550px;
+width : 600px;
 }
-.instructions {
-height : 300px;
-width : 550px;
-font-size : 12px;
-background-color : #F7DFBD;
-border-top-width : thin;
-border-right-width : thin;
-border-bottom-width : thin;
-border-left-width : thin;
+
+.wrapperTable{
+border-spacing:0;
+border-collapse:collapse;
 border-top-style : solid;
 border-right-style : solid;
 border-bottom-style : solid;
 border-left-style : solid;
+border-top-width : thin;
+border-right-width : thin;
+border-bottom-width : thin;
+border-left-width : thin;
 }
+.maintable{
+border-spacing:0;
+border-collapse:collapse;
+width : 550px;
+}
+
+.instructions {
+height : 300px;
+font-size : 12px;
+background-color : #F7DFBD;
+}
+
 .game {
 background-color : #F7DFBD;
 display : none;
-width : 550px;
 height : 300px;
-border-top-width : thin;
-border-right-width : thin;
-border-bottom-width : thin;
-border-left-width : thin;
-border-top-style : solid;
-border-right-style : solid;
-border-bottom-style : solid;
-border-left-style : solid;
 }
 .pause {
 background-color : #F7DFBD;
 display : none;
-width : 550px;
 height : 300px;
-border-top-width : thin;
-border-right-width : thin;
-border-bottom-width : thin;
-border-left-width : thin;
-border-top-style : solid;
-border-right-style : solid;
-border-bottom-style : solid;
-border-left-style : solid;
 font-size : 16px;
 font-style : italic;
 font-weight : bold;
 text-align : center;
 }
+
 .gameOver {
 background-color : #F7DFBD;
 display : none;
-width : 550px;
 height : 300px;
-border-top-width : thin;
-border-right-width : thin;
-border-bottom-width : thin;
-border-left-width : thin;
-border-top-style : solid;
-border-right-style : solid;
-border-bottom-style : solid;
-border-left-style : solid;
 }
 .navigation {
 background-color : #666;
-height : 30px;
-width : 550px;
-border-top-width : thin;
-border-right-width : thin;
-border-bottom-width : thin;
-border-left-width : thin;
-border-top-style : solid;
-border-right-style : solid;
-border-bottom-style : solid;
-border-left-style : solid;
-padding-top : 10px;
-padding-bottom : 10px;
-padding-left : 0;
-}
-.sequenceIndex {
-float : left;
-width : 30%;
-}
-.yourOutput {
-float : left;
-width : 10%;
-text-align : center;
-}
-.correctOutput {
-float : left;
-width : 40%;
-}
-.playerOrder {
-float : left;
-width : 60%;
+height : 40px;
 }
 .Label {
 font-size : 13px;
@@ -165,6 +121,7 @@ border : #000 none 5px;
 }
 .instructionsButton {
 background-image : url("../images/sequence/instructions_button0001.png");
+background-repeat:none;
 background-color : #666;
 border-top-style : none;
 border-right-style : none;
@@ -177,6 +134,7 @@ padding-right : 20px;
 }
 .muteButton {
 background-image : url("../images/sequence/sound_button0002.png");
+background-repeat:none;
 background-color : #666;
 border-top-style : none;
 border-right-style : none;
@@ -188,6 +146,7 @@ padding-right : 20px;
 }
 .playButton {
 background-image : url("../images/sequence/play_button0001.png");
+background-repeat:none;
 background-color : #666;
 border-top-style : none;
 border-right-style : none;
@@ -200,6 +159,7 @@ padding-right : 20px;
 }
 .pauseButton {
 background-image : url("../images/sequence/pause_button0001.png");
+background-repeat:none;
 background-color : #666;
 border-top-style : none;
 border-right-style : none;
@@ -242,17 +202,10 @@ padding-top:10px;
 
 .gameOverLink{
 background-color : #F7DFBD;
-height : 40px;
-width : 550px;
-border-top-width : thin;
-border-right-width : thin;
-border-bottom-width : thin;
-border-left-width : thin;
-//border-top-style : solid;
-border-right-style : solid;
-border-bottom-style : solid;
-border-left-style : solid;
+font-style : italic;
+font-weight : bold;
 text-align:center;
+
 }
 
 .gameOverContent{
@@ -260,30 +213,28 @@ display:none;
 }
 .lights{
 background-color:#666;
-width:583px;
-position:relative;
+width:30px;
+vertical-align:bottom;
 }
 
 .lightLabel{
-background-color:#666;
-padding-left:15px;
-padding-right:10px;
+background-color:#555;
+width:25px;
+height:10px;
+border:1px inset black;
 }
 
 .lightLabelCorrect{
 background-color:#00FF00;
-padding-left:15px;
-padding-right:10px;
+width:25px;
+height:10px;
+border:1px inset black;
 
 }
 
 .lightLabelInCorrect{
 background-color:#FF0000;
-padding-left:15px;
-padding-right:10px;
-
-}
-.tablealign{
-background-color:#666;
-float: right;	
+width:25px;
+height:10px;
+border:1px inset black;
 }

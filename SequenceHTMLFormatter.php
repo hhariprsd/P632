@@ -25,7 +25,16 @@ class SequenceHTMLFormatter implements iHTMLContentFormatter{
 		$htmlInstructionCode = $htmlInstructionCode . "var pausedTime = null;";
 		$htmlInstructionCode = $htmlInstructionCode . "var initScore = 0;";
 		$htmlInstructionCode = $htmlInstructionCode . "var gameOverFlag = 0;";
+		$htmlInstructionCode = $htmlInstructionCode . "var countDownTimerObject = null;";
+		$htmlInstructionCode = $htmlInstructionCode . "var userArray = null;";
 		$htmlInstructionCode = $htmlInstructionCode . " function setHeight() { $('#instructions').height((((".$dataVO->getSampleSize()." - 7) * 30 ) + 280));";
+		if($dataVO->getUse1() == "yes"){
+			$htmlInstructionCode = $htmlInstructionCode . "document.getElementById(\"level1\").checked=true;";
+		}else if($dataVO->getUse2() == 'yes'){
+			$htmlInstructionCode = $htmlInstructionCode . "document.getElementById(\"level2\").checked=true;";
+		}else{
+			$htmlInstructionCode = $htmlInstructionCode . "document.getElementById(\"level3\").checked=true;";
+		}
 		$htmlInstructionCode = $htmlInstructionCode . "}";
 		
 		$itemList = $dataVO->getChildInfo();
@@ -87,6 +96,8 @@ class SequenceHTMLFormatter implements iHTMLContentFormatter{
 		$htmlInstructionCode = $htmlInstructionCode ."}";
 
 		$htmlInstructionCode = $htmlInstructionCode . "function play(){";
+		$htmlInstructionCode = $htmlInstructionCode . "window.clearInterval(countDownTimerObject);";
+		$htmlInstructionCode = $htmlInstructionCode . "countDownTimerObject = setInterval(function(){ countdown(); },1000);";
 		$htmlInstructionCode = $htmlInstructionCode . "itemArray = new Array();";
 		$htmlInstructionCode = $htmlInstructionCode . "sampleArray = new Array();";
 		$htmlInstructionCode = $htmlInstructionCode . "shuffleArray = new Array();";
@@ -128,6 +139,7 @@ class SequenceHTMLFormatter implements iHTMLContentFormatter{
 		$htmlInstructionCode = $htmlInstructionCode . "$('#sortable').empty();";
 		$htmlInstructionCode = $htmlInstructionCode . "$('#sortable').append( liItems.join('') );";
 		$htmlInstructionCode = $htmlInstructionCode . " var items = document.getElementById(\"sortable\").getElementsByTagName(\"li\");";
+		$htmlInstructionCode = $htmlInstructionCode . " userArray = document.getElementById(\"sortable\").getElementsByTagName(\"li\");";
 		$htmlInstructionCode = $htmlInstructionCode . "calcScore(sampleArray,items);";
 		$htmlInstructionCode = $htmlInstructionCode . "if(initScore==100) {";
 		$htmlInstructionCode = $htmlInstructionCode . "if(gameOverFlag==1) {initScore=0; gameOverFlag=0;";
@@ -169,6 +181,7 @@ class SequenceHTMLFormatter implements iHTMLContentFormatter{
 		$htmlInstructionCode = $htmlInstructionCode . "document.getElementById('items').style.display=id2;";
         $htmlInstructionCode = $htmlInstructionCode . "document.getElementById('pause').style.display=id3;";
 		$htmlInstructionCode = $htmlInstructionCode . "document.getElementById('end').style.display=id5;";
+		$htmlInstructionCode = $htmlInstructionCode . "document.getElementById('gameOverContent').style.display='none';";
 		$htmlInstructionCode = $htmlInstructionCode . "setaudio();";
 		$htmlInstructionCode = $htmlInstructionCode . "var divHeight = (((".$dataVO->getSampleSize()." - 7) * 30 ) + 280);";
 		$htmlInstructionCode = $htmlInstructionCode . "$('#instructions').height(divHeight);";
@@ -192,8 +205,14 @@ class SequenceHTMLFormatter implements iHTMLContentFormatter{
  		$htmlInstructionCode = $htmlInstructionCode . " {document.getElementById('sound').play();}";
 		$htmlInstructionCode = $htmlInstructionCode . " },";
 		$htmlInstructionCode = $htmlInstructionCode . "	stop: function( event, ui ) {";
-		$htmlInstructionCode = $htmlInstructionCode . " var itemArray = document.getElementById(\"sortable\").getElementsByTagName(\"li\");";
-		$htmlInstructionCode = $htmlInstructionCode . " calcScore(sampleArray,itemArray);";
+		$htmlInstructionCode = $htmlInstructionCode . " var itemArray = document.getElementById(\"sortable\").getElementsByTagName(\"li\");";		
+		$htmlInstructionCode = $htmlInstructionCode . " userArray = document.getElementById(\"sortable\").getElementsByTagName(\"li\");";
+		$htmlInstructionCode = $htmlInstructionCode . " var score = calcScore(sampleArray,itemArray);";
+		$htmlInstructionCode = $htmlInstructionCode . "var minutes = document.getElementById('minute');";
+ 		$htmlInstructionCode = $htmlInstructionCode . "var seconds = document.getElementById('seconds');";
+ 			
+ 		$htmlInstructionCode = $htmlInstructionCode . "time = parseInt(minutes.innerHTML * 60,10) + parseInt(seconds.innerHTML,10);";
+ 		$htmlInstructionCode = $htmlInstructionCode . "if (time <= 0) {	gameOver(score);}";
 		$htmlInstructionCode = $htmlInstructionCode . " }});";
  		$htmlInstructionCode = $htmlInstructionCode . " });";
  		 		
@@ -211,7 +230,7 @@ class SequenceHTMLFormatter implements iHTMLContentFormatter{
  		$htmlInstructionCode = $htmlInstructionCode . "changeMinuteAndTime(time);";
   		$htmlInstructionCode = $htmlInstructionCode . "}";
    		$htmlInstructionCode = $htmlInstructionCode . "}";
- 		$htmlInstructionCode = $htmlInstructionCode . "setInterval(function(){ countdown(); },1000);"; 
+ 		 
  		 		
  		$htmlInstructionCode = $htmlInstructionCode . "function sortids() {";
  		$htmlInstructionCode = $htmlInstructionCode . "var myArray = ['1', '2', '3','4','5','6','7','8','9']; ";
@@ -229,8 +248,10 @@ class SequenceHTMLFormatter implements iHTMLContentFormatter{
  		$htmlInstructionCode = $htmlInstructionCode . "}";
  			
  		$htmlInstructionCode = $htmlInstructionCode . "function gameOver(score) { ";
+ 		$htmlInstructionCode = $htmlInstructionCode . "window.clearInterval(countDownTimerObject);";
+ 		
 		$htmlInstructionCode = $htmlInstructionCode . "gameOverFlag = 1;";
-  		$htmlInstructionCode = $htmlInstructionCode . " var userArray = document.getElementById(\"sortable\").getElementsByTagName(\"li\");";
+  		//$htmlInstructionCode = $htmlInstructionCode . " var userArray = document.getElementById(\"sortable\").getElementsByTagName(\"li\");";
  		$htmlInstructionCode = $htmlInstructionCode . "var liItems1 = [];";
  	
  		$htmlInstructionCode = $htmlInstructionCode . "for(var i=0;i<userArray.length;i++){";
@@ -271,6 +292,14 @@ class SequenceHTMLFormatter implements iHTMLContentFormatter{
  		$htmlInstructionCode = $htmlInstructionCode . "}else{"; 		
   		$htmlInstructionCode = $htmlInstructionCode . "changeDiv('none','block','none','block','none','true');";
   		
+  		$htmlInstructionCode = $htmlInstructionCode . "if(document.getElementById(\"level1\").checked == true){";
+  		$htmlInstructionCode = $htmlInstructionCode . "changeLevel(" . $dataVO->getTimer1() . ");";
+  		$htmlInstructionCode = $htmlInstructionCode . "}else if(document.getElementById(\"level2\").checked == true){";
+  		$htmlInstructionCode = $htmlInstructionCode . "changeLevel(" . $dataVO->getTimer2() . ");";
+  		$htmlInstructionCode = $htmlInstructionCode . "}else if(document.getElementById(\"level3\").checked == true){";
+  		$htmlInstructionCode = $htmlInstructionCode . "changeLevel(" . $dataVO->getTimer3() . ");";
+  		$htmlInstructionCode = $htmlInstructionCode . "}else {";
+    		 
   		 if($dataVO->getUse1() == "yes"){
   			$timer = $dataVO->getTimer1();
   			$htmlInstructionCode = $htmlInstructionCode . "document.getElementById(\"level1\").checked=true;";
@@ -281,9 +310,9 @@ class SequenceHTMLFormatter implements iHTMLContentFormatter{
   			$timer = $dataVO->getTimer3();
   			$htmlInstructionCode = $htmlInstructionCode . "document.getElementById(\"level3\").checked=true;";
   		}
-  		  		
+    		  		
  		$htmlInstructionCode = $htmlInstructionCode . "changeLevel(" . $timer . ");";
- 		$htmlInstructionCode = $htmlInstructionCode . "}";
+ 		$htmlInstructionCode = $htmlInstructionCode . "}}";
  		$htmlInstructionCode = $htmlInstructionCode . "document.getElementById('play').style.display='none';";
  		$htmlInstructionCode = $htmlInstructionCode . "document.getElementById('pauseButton').style.display='inline';";
  		$htmlInstructionCode = $htmlInstructionCode . "}";

@@ -467,7 +467,7 @@ class SequenceHTMLFormatter implements iHTMLContentFormatter{
 		$htmlInstructionCode = $htmlInstructionCode . "<div class=\"gameOverLink\">";
 		$htmlInstructionCode = $htmlInstructionCode . "<span id=\"gameOverContent\" class=\"gameOverContent\">";
 		$htmlInstructionCode = $htmlInstructionCode . "GAME OVER <br/>";
-		$htmlInstructionCode = $htmlInstructionCode . "<a href=\"javascript:location.reload(true);\">CLICK HERE TO PLAY AGAIN</a>";
+		$htmlInstructionCode = $htmlInstructionCode . "<a href=\"javascript:onclickPlay();\">CLICK HERE TO PLAY AGAIN</a>";
 		$htmlInstructionCode = $htmlInstructionCode . "</span>";
 		$htmlInstructionCode = $htmlInstructionCode . "</div>";
 		$htmlInstructionCode = $htmlInstructionCode ."<div id='controls' class='navigation'>";

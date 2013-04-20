@@ -4,7 +4,7 @@
  * This class holds the data extracted from the Style File.
  * For every Style File , an instance of this VO is created.
  * 
- * @author Mani
+ * 
  * @version 0.0
  */
 

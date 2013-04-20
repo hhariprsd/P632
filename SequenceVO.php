@@ -4,7 +4,7 @@
  * This class is used for holding data extracted from the game data file.
  * For every game data file, an instance of this class is created.
  * 
- * @author Mani
+ * 
  * @version 0.0
  */
 

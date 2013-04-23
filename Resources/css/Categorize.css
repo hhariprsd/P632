@@ -194,6 +194,12 @@ background-color : #F7DFBD;
 height: 40px;
 }
 
+.categoryButtonHighLight{
+width:150px;
+background-color : #FFFFFF;
+height: 40px;
+}
+
 .defaultInstructions {
 padding-left:20px;
 padding-right:20px;

@@ -85,6 +85,7 @@ class CategorizeHTMLFormatter implements iHTMLContentFormatter{
 		$htmlInstructionCode = $htmlInstructionCode . "function validateMatch(buttonName) { \n";
 		$htmlInstructionCode = $htmlInstructionCode . "var cat;\n";
 		$htmlInstructionCode = $htmlInstructionCode . "window.clearInterval(countDownTimerObject);\n";
+		$htmlInstructionCode = $htmlInstructionCode . "disableCategoryButtons();\n";
 		$htmlInstructionCode = $htmlInstructionCode . "var itemMatch = false;\n";
 		$htmlInstructionCode = $htmlInstructionCode . "var item = document.getElementById(\"item\").innerHTML;\n";
 		$htmlInstructionCode = $htmlInstructionCode . "if(buttonName!=null){\n";
@@ -111,7 +112,7 @@ class CategorizeHTMLFormatter implements iHTMLContentFormatter{
 		$htmlInstructionCode = $htmlInstructionCode . "if(selectedCategoryItems[i] == item){\n";
 		$htmlInstructionCode = $htmlInstructionCode . "itemMatch = true;\n";
 		$htmlInstructionCode = $htmlInstructionCode . "cat = categoryList[j];\n";
-		$htmlInstructionCode = $htmlInstructionCode . "document.getElementById(cat).style.background='#4CC552';\n;";
+		$htmlInstructionCode = $htmlInstructionCode . "document.getElementById(cat).className='categoryButtonHighlight';\n;";
 		$htmlInstructionCode = $htmlInstructionCode . "break;\n";
 		$htmlInstructionCode = $htmlInstructionCode . "}\n";
 		$htmlInstructionCode = $htmlInstructionCode . "}\n";
@@ -119,6 +120,7 @@ class CategorizeHTMLFormatter implements iHTMLContentFormatter{
 		$htmlInstructionCode = $htmlInstructionCode . "}\n";
 		$htmlInstructionCode = $htmlInstructionCode . "document.getElementById('lightLabel'+ (".$dataVO->getSampleSize() . " - gameItemIndex + 1)).className=\"lightLabelInCorrect\";\n";
 		$htmlInstructionCode = $htmlInstructionCode . "}\n";
+		
 		$htmlInstructionCode = $htmlInstructionCode . "setTimeout(function(){continueGame()},1000);\n";
 		$htmlInstructionCode = $htmlInstructionCode . "}\n";
 
@@ -132,9 +134,10 @@ class CategorizeHTMLFormatter implements iHTMLContentFormatter{
 		$htmlInstructionCode = $htmlInstructionCode . "}\n";
 
 		$htmlInstructionCode = $htmlInstructionCode . "function continueGame() {\n";
+		
 		$htmlInstructionCode = $htmlInstructionCode . "var i=0;\n";
 		$htmlInstructionCode = $htmlInstructionCode . "for(i=0;i<categoryList.length;i++){\n";
-		$htmlInstructionCode = $htmlInstructionCode ." document.getElementById(''+categoryList[i]).style.background = '#F7DFBD';\n";
+		$htmlInstructionCode = $htmlInstructionCode ." document.getElementById(''+categoryList[i]).className = 'categoryButton';\n";
 		$htmlInstructionCode = $htmlInstructionCode . "}\n";
 		$htmlInstructionCode = $htmlInstructionCode . "if(gameItemIndex >= shuffleListOfItems.length){\n";
 		$htmlInstructionCode = $htmlInstructionCode . "gameOver();\n";
@@ -151,8 +154,21 @@ class CategorizeHTMLFormatter implements iHTMLContentFormatter{
 		$htmlInstructionCode = $htmlInstructionCode . "}\n";
 		$htmlInstructionCode = $htmlInstructionCode . "window.clearInterval(countDownTimerObject);\n";
 		$htmlInstructionCode = $htmlInstructionCode . "countDownTimerObject = setInterval(function(){ countdown(); },1000);\n";
+		$htmlInstructionCode = $htmlInstructionCode . "enableCategoryButtons();\n";
 		$htmlInstructionCode = $htmlInstructionCode . "}\n";
 
+		$htmlInstructionCode = $htmlInstructionCode ." function disableCategoryButtons() {\n";
+		$htmlInstructionCode = $htmlInstructionCode ." var i = 0;\n";
+		$htmlInstructionCode = $htmlInstructionCode ." for(i=0;i<categoryList.length;i++){\n";
+		$htmlInstructionCode = $htmlInstructionCode ." document.getElementById(''+categoryList[i]).disabled = true;\n";
+		$htmlInstructionCode = $htmlInstructionCode ." }}\n";
+		
+		$htmlInstructionCode = $htmlInstructionCode ." function enableCategoryButtons() {\n";
+		$htmlInstructionCode = $htmlInstructionCode ." var i =0;\n";
+		$htmlInstructionCode = $htmlInstructionCode ." for(i=0;i<categoryList.length;i++){\n";
+		$htmlInstructionCode = $htmlInstructionCode ." document.getElementById(''+categoryList[i]).disabled = false;\n";
+		$htmlInstructionCode = $htmlInstructionCode ." }}\n";
+		
 		$htmlInstructionCode = $htmlInstructionCode . "function gameOver() {\n";
 		$htmlInstructionCode = $htmlInstructionCode . "changeDiv('gameOver','game');\n";
 		$htmlInstructionCode = $htmlInstructionCode . "enablePlayButton();\n";

@@ -192,13 +192,22 @@ vertical-align:text-top;
 width:150px;
 background-color : #F7DFBD;
 height: 40px;
+-webkit-appearance: none;
 }
 
 .categoryButtonHighLight{
 width:150px;
-background-color : #FFFFFF;
+background-color : #FFFF00;
+color: #000000;
 height: 40px;
+-webkit-appearance: none;
 }
+
+//input[type="button"][disabled] {
+//color: #000000;
+//background-color: #F7DFBD;
+//}
+
 
 .defaultInstructions {
 padding-left:20px;

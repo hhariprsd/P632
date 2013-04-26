@@ -94,6 +94,7 @@ class CategorizeHTMLFormatter implements iHTMLContentFormatter{
 		$htmlInstructionCode = $htmlInstructionCode . "if(selectedCategoryItems[i] == item){\n";
 		$htmlInstructionCode = $htmlInstructionCode . "itemMatch = true;\n";
 		$htmlInstructionCode = $htmlInstructionCode . "document.getElementById('lightLabel'+(".$dataVO->getSampleSize() . " - gameItemIndex + 1)).className=\"lightLabelCorrect\";\n";
+		$htmlInstructionCode = $htmlInstructionCode . "document.getElementById(buttonName).className='categoryButtonHighlight';\n;";
 		$htmlInstructionCode = $htmlInstructionCode . "if(audioFlag==1){\n";
 		$htmlInstructionCode = $htmlInstructionCode . "document.getElementById('correctSound').play();\n";
 		$htmlInstructionCode = $htmlInstructionCode . "}\n";
@@ -160,12 +161,14 @@ class CategorizeHTMLFormatter implements iHTMLContentFormatter{
 		$htmlInstructionCode = $htmlInstructionCode ." function disableCategoryButtons() {\n";
 		$htmlInstructionCode = $htmlInstructionCode ." var i = 0;\n";
 		$htmlInstructionCode = $htmlInstructionCode ." for(i=0;i<categoryList.length;i++){\n";
+		//$htmlInstructionCode = $htmlInstructionCode ." document.getElementById(''+categoryList[i]).className = \"categoryButtonDisabled\";\n";
 		$htmlInstructionCode = $htmlInstructionCode ." document.getElementById(''+categoryList[i]).disabled = true;\n";
 		$htmlInstructionCode = $htmlInstructionCode ." }}\n";
 		
 		$htmlInstructionCode = $htmlInstructionCode ." function enableCategoryButtons() {\n";
 		$htmlInstructionCode = $htmlInstructionCode ." var i =0;\n";
 		$htmlInstructionCode = $htmlInstructionCode ." for(i=0;i<categoryList.length;i++){\n";
+		//$htmlInstructionCode = $htmlInstructionCode ." document.getElementById(''+categoryList[i]).className = \"categoryButton\";\n";
 		$htmlInstructionCode = $htmlInstructionCode ." document.getElementById(''+categoryList[i]).disabled = false;\n";
 		$htmlInstructionCode = $htmlInstructionCode ." }}\n";
 		
@@ -212,7 +215,12 @@ class CategorizeHTMLFormatter implements iHTMLContentFormatter{
 		$htmlInstructionCode = $htmlInstructionCode . "\n}\n}\n";
 		$htmlInstructionCode = $htmlInstructionCode . "enablePauseButton();\n";
 		$htmlInstructionCode = $htmlInstructionCode . "}\n";
-
+		
+		$htmlInstructionCode = $htmlInstructionCode . "function onclickPlayLink() {\n";
+		$htmlInstructionCode = $htmlInstructionCode . "pausedTime = null;";
+		$htmlInstructionCode = $htmlInstructionCode . "onclickPlay();";
+		$htmlInstructionCode = $htmlInstructionCode . "}\n";
+		
 		$htmlInstructionCode = $htmlInstructionCode . "function enablePauseButton() { \n";
 		$htmlInstructionCode = $htmlInstructionCode . "document.getElementById('pauseButton').style.display='inline';\n";
 		$htmlInstructionCode = $htmlInstructionCode . "document.getElementById('play').style.display='none';\n";
@@ -378,7 +386,7 @@ class CategorizeHTMLFormatter implements iHTMLContentFormatter{
 		$htmlInstructionCode = $htmlInstructionCode . "<div class=\"gameOverLink\">\n";
 		$htmlInstructionCode = $htmlInstructionCode . "<span id=\"gameOverContent\" class=\"gameOverContent\">\n";
 		$htmlInstructionCode = $htmlInstructionCode . "<p>GAME OVER </p>\n";
-		$htmlInstructionCode = $htmlInstructionCode . "<p><a href=\"javascript:onclickPlay();\">CLICK HERE TO PLAY AGAIN</a></p>\n";
+		$htmlInstructionCode = $htmlInstructionCode . "<p><a href=\"javascript:onclickPlayLink();\">CLICK HERE TO PLAY AGAIN</a></p>\n";
 		$htmlInstructionCode = $htmlInstructionCode . "</span>\n";
 		$htmlInstructionCode = $htmlInstructionCode . "</div>\n";
 		$htmlInstructionCode = $htmlInstructionCode ."</td>\n";
